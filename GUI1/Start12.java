@@ -8,6 +8,7 @@
 public class Start12 implements ITuWas
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
+    private Zeichnung window;
     private Eingabefeld eingabeA;
 
     /**
@@ -15,13 +16,20 @@ public class Start12 implements ITuWas
      */
     public Start12()
     {
+        window = new Zeichnung();
+        window.resize(600, 400);
+        window.show();
+        window.setAlwaysOnTop(true);
+        window.setTitle("Loading");
+        
         // Instanzvariable initialisieren
         eingabeA = new Eingabefeld();
         eingabeA.setzePosition(100, 100);
         eingabeA.setzeGroesse(400, 50);
         eingabeA.setzeHintergrundfarbe("gelb");
-        eingabeA.setzeAusgabetext("Laden ...");
+        eingabeA.setzeAusgabetext("Info Text");
         eingabeA.setReadonly();
+        
 
     }
 
