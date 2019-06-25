@@ -37,7 +37,6 @@ public class Start12 implements ITuWas
         if (ID == 0) 
         {
             this.eingabeLoeschen(); // Die Taste rot  
-
         } 
         else if (ID == 10) 
         {
