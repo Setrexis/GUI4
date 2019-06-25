@@ -2,12 +2,7 @@ import java.util.regex.Pattern;
 import java.util.UUID;
 import java.util.*;
 import java.util.Arrays;
-/**
- * Write a description of class ServerMain here.
- * 
- * @author (No Name) 
- * @version (-1)
- */
+
 class ServerMain
 {
     private KomunikationServer con;
@@ -127,8 +122,12 @@ class ServerMain
                 String[] info = authIDKeyPair.get(key);
                 
                 if(abgelaufen(info[1]) == false){
-                    sqlE.FilmAusleihen(data[2], Integer.parseInt(info[0]));
-                    send("Erfolg");
+                    if(sql.PrüfenObAusgeliehen(data[2])){
+                        send("ERROR" + "Wurde Leider Schon ausgeliehen");
+                    }else{
+                        sqlE.FilmAusleihen(data[2], Integer.parseInt(info[0]));
+                        send("Erfolg");
+                    }
                 }else {
                     //Error
                     authIDKeyPair.remove(key);
@@ -139,7 +138,6 @@ class ServerMain
             }
         }else{
             send("ERROR1");
-            
         }
         
         

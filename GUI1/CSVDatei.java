@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import javax.swing.JOptionPane;
-
 /**
  * Die Klasse <b>CSVDatei</b> dient dem Lesen und Schreiben von CSV-Dateien<br/>
  * Die Klasse CSVDatei erstellt ein pseudozweidimensionales Feld<br/>

@@ -1,10 +1,5 @@
 import java.sql.*;
-/**
- * Abstrakte Klasse SqlCreate - beschreiben Sie hier die Klasse
- *
- * @author (Ihr Name)
- * @version (eine Version-Nummer oder ein Datum)
- */
+
 public class SqlCreate
 {
     private Statement stmt;
@@ -31,7 +26,12 @@ public class SqlCreate
     }
 
     public void close(){
-        stmt.close();
-        c.close();
+        try{
+            stmt.close();
+            c.close();
+        }catch(SQLException e){
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
     }
 }

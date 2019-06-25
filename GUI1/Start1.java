@@ -72,7 +72,7 @@ public class Start1 implements ITuWas
             this.delLogin();
             this.registrieren();
         }
-        else if (ID >= 200  && ID <= 220) 
+        else if (ID >= 200  && ID <= 200 + länge) 
         {
             this.ausleihen(ID - 200); // Die grünen Tasten
         }
@@ -98,6 +98,9 @@ public class Start1 implements ITuWas
     public void ausleihen(int i)
     {
         System.out.println("Ausleihen " + st[i].leseText() + " Mit " + key);
+        String info = "AUSLEIHEN~~+~~" + key + "~~+~~" +st[i].leseText();
+        String ans = suche.send(info);
+        System.out.print(ans);
     }
     
     public void entfernenListe(){
@@ -182,8 +185,8 @@ public class Start1 implements ITuWas
             taste3[i].setzeHintergrundfarbe("gelb");
             taste3[i].setzePosition(1520, 210+i*300);
             taste3[i].setzeAusgabetext("Ausleihen");
-             taste3[i].setzeID(200+i);
-             taste3[i].setzeLink(this);
+            taste3[i].setzeID(200+i);
+            taste3[i].setzeLink(this);
         }
        
         tasteRot.setzeLink(this);
