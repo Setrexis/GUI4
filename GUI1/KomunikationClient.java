@@ -33,7 +33,7 @@ class KomunikationClient
     public Liste querry(String command){
         String ans = "";
         Liste list = null;
-         try {
+        try {
             client = new Socket(host,port);
             DataOutputStream output = new DataOutputStream(client.getOutputStream());
             output.writeUTF(command);
@@ -71,6 +71,7 @@ class KomunikationClient
             ans = input.readUTF();
         }catch(IOException e){
             e.printStackTrace();
+            ans = "ERROR "+ e.getClass().getName() + ": " + e.getMessage();
         }
         return ans;
     }

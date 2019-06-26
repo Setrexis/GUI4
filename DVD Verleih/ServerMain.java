@@ -16,7 +16,7 @@ class ServerMain
      */
     ServerMain ()
     {
-        con = new KomunikationServer(2329);
+        con = new KomunikationServer(2526);
         sql = new SQLAbfrage();
         sqlE = new DatenEinf();
         authIDKeyPair = new HashMap<String,String[]>();
@@ -80,7 +80,7 @@ class ServerMain
             salt = dt.salt;
            
             if (i == -1 || !Arrays.equals(Hash.HashPasswort(data[2], salt), pas)){
-                send("ERROR falsches passswort/email!");
+                send("ERROR~~+~~falsches passswort/email!");
             }else{
                 String key = key();
                 String[] a = new String[2];
@@ -101,7 +101,7 @@ class ServerMain
             try{
                 sqlE.registrieren(data[1], data[2], 0, data[1] + " " + data[2], pas, data[4], "", salt);
             }catch(Exception e){
-                send("ERROR " + e);
+                send("ERROR~~+~~" + e);
                 return;
             }
             int i = sql.LoginAbfrage(data[4], data[3]); 
@@ -123,15 +123,15 @@ class ServerMain
                 
                 if(abgelaufen(info[1]) == false){
                     if(sql.PrüfenObAusgeliehen(data[2])){
-                        send("ERROR" + "Wurde Leider Schon ausgeliehen");
+                        send("ERROR~~+~~Wurde Leider Schon ausgeliehen");
                     }else{
                         sqlE.FilmAusleihen(data[2], Integer.parseInt(info[0]));
-                        send("Erfolg");
+                        send("ERFOLG");
                     }
                 }else {
                     //Error
                     authIDKeyPair.remove(key);
-                    send("ERROR" + " Key abgelaufen");
+                    send("ERROR~~+~~Key abgelaufen");
                 }
             }catch(Exception e){
                 send("ERROR " + e);

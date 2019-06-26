@@ -1,4 +1,4 @@
-
+import java.util.regex.Pattern;
 /**
  * Beschreiben Sie hier die Klasse Start1.
  * 
@@ -10,6 +10,9 @@ public class Start1 implements ITuWas
     private String key;
     private KomunikationClient suche;
     private boolean didex;
+    
+    // Info
+    private Infotext infohandler;
     
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
     private Taste tasteRot;
@@ -50,7 +53,7 @@ public class Start1 implements ITuWas
      */
     public Start1()
     {
-       suche = new KomunikationClient(2329);
+       suche = new KomunikationClient(2526);
        key = "";
        didex = false;
        login();
@@ -71,6 +74,13 @@ public class Start1 implements ITuWas
         else if (ID == 3){
             this.delLogin();
             this.registrieren();
+        }else if (ID == 4){
+            if(infohandler == null){
+                
+            }else{
+                infohandler.hide();
+                infohandler = null;
+            }
         }
         else if (ID >= 200  && ID <= 200 + länge) 
         {
@@ -101,6 +111,14 @@ public class Start1 implements ITuWas
         String info = "AUSLEIHEN~~+~~" + key + "~~+~~" +st[i].leseText();
         String ans = suche.send(info);
         System.out.print(ans);
+        if(ans.equals("ERFOLG")){
+            infonachricht("ERFOLG!", st[i].leseText() + "\n"+"wurde Efolgreich ausgeliehen");
+        }else{
+            Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+            String[] data = pattern.split(ans);
+            infonachricht("Fehler!", "Fehler " + data[1]);
+        }
+        suche("");
     }
     
     public void entfernenListe(){
@@ -341,6 +359,9 @@ public class Start1 implements ITuWas
         System.out.println("Reg Key " + key);
         if(key.startsWith("ERROR") || key.equals("")){
             System.out.println(key);
+            Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+            String[] data = pattern.split(key);
+            infonachricht("Fehler!", "Fehler " + data[1]);
             key = "";
         }else{
             System.out.println("Del reg");
@@ -355,6 +376,9 @@ public class Start1 implements ITuWas
         System.out.println("Login Key " + key);
         if(key.startsWith("ERROR") || key.equals("")){
             System.out.println(key);
+            Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+            String[] data = pattern.split(key);
+            infonachricht("Fehler!", "Fehler " + data[1]);
             key = "";
         }else{
             System.out.println("login löschen");
@@ -362,5 +386,9 @@ public class Start1 implements ITuWas
             System.out.println("Fertig");
             suche("");
         }
+    }
+    
+    public void infonachricht(String titel, String nachricht){
+        infohandler = new Infotext(nachricht, titel,this);
     }
 }
