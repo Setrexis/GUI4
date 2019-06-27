@@ -1,19 +1,17 @@
 import java.util.regex.Pattern;
-/**
- * Beschreiben Sie hier die Klasse Start1.
- * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
- */
+
 public class Start1 implements ITuWas
 {
     private String key;
     private KomunikationClient suche;
     private boolean didex;
-    
+
+    // zeichnung
+    private Zeichnung window;
+
     // Info
     private Infotext infohandler;
-    
+
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
     private Taste tasteRot;
     private Taste tasteGruen;
@@ -28,7 +26,7 @@ public class Start1 implements ITuWas
     private Eingabefeld[] et;
     private Liste data;
     private int länge;
-    
+
     //register
     private Eingabefeld eingabeB;
     private Bild b;
@@ -38,8 +36,8 @@ public class Start1 implements ITuWas
     private Eingabefeld g;
     private Eingabefeld h;
     private Taste i;
-    
-    
+
+
     //Login
     private Eingabefeld eingabeC;
     private Listbox eLogin;
@@ -56,14 +54,17 @@ public class Start1 implements ITuWas
        suche = new KomunikationClient(2526);
        key = "";
        didex = false;
+       infohandler = new Infotext(this);
+       window = new Zeichnung();
+       window.resize(1920, 1080);
        login();
     }
 
-    public void tuWas(int ID) { // Diese Methode wird von den Tasten aufgerufen        
-        
-        if (ID == 0) 
+    public void tuWas(int ID) { // Diese Methode wird von den Tasten aufgerufen
+
+        if (ID == 0)
         {
-            this.suche(eingabeA.leseText()); // Die Taste rot  
+            this.suche(eingabeA.leseText()); // Die Taste rot
         }
         else if(ID == 1){
             this.reg();
@@ -76,13 +77,12 @@ public class Start1 implements ITuWas
             this.registrieren();
         }else if (ID == 4){
             if(infohandler == null){
-                
+
             }else{
                 infohandler.hide();
-                infohandler = null;
             }
         }
-        else if (ID >= 200  && ID <= 200 + länge) 
+        else if (ID >= 200  && ID <= 200 + länge)
         {
             this.ausleihen(ID - 200); // Die grünen Tasten
         }
@@ -91,7 +91,7 @@ public class Start1 implements ITuWas
     public void suche(String titel)
     {
         String st = "";
-        
+
         if(titel.equals("") || titel.equals("Film suchen ...")){
             st = "QUERY~~+~~*";
         }else{
@@ -120,12 +120,12 @@ public class Start1 implements ITuWas
         }
         suche("");
     }
-    
+
     public void entfernenListe(){
-        
+
         eingabeA.entfernen();
         tasteRot.entfernen();
-        
+
         for(int i = 0;i < länge;i++){
             rr[i].entfernen();
             st[i].entfernen();
@@ -135,7 +135,7 @@ public class Start1 implements ITuWas
         }
         didex = false;
     }
-    
+
     public void displayListe(Liste l){
         didex = true;
         länge = l.length();
@@ -146,20 +146,20 @@ public class Start1 implements ITuWas
         eingabeA.setzeHintergrundfarbe("gruen");
         eingabeA.setzeAusgabetext("Film suchen ...");
         //eingabeA.uuu
-        
+
         tasteRot = new Taste();
         tasteRot.setzeHintergrundfarbe("gruen");
         tasteRot.setzePosition(1750, 100);
         tasteRot.setzeAusgabetext("Los!");
-       
-      
+
+
         rr = new RechteckMitRundenEcken[länge];
         for(int i = 0;i < länge;i++){
            rr[i] = new RechteckMitRundenEcken(1600,200,50);
            rr[i].setzePosition(150, 200+i*300);
            rr[i].setzeFarbe("weiss");
-        } 
-      
+        }
+
         st = new Eingabefeld[länge];
         for(int i = 0;i < länge;i++){
            st[i] = new Eingabefeld();
@@ -169,8 +169,8 @@ public class Start1 implements ITuWas
            st[i].setReadonly();
            st[i].setzeAusgabetext(l.get(i).getTitle());
            st[i].setzeSchriftgroesse(18);
-        } 
-       
+        }
+
         bt = new Eingabefeld[länge];
         for(int i = 0;i < länge;i++){
            bt[i] = new Eingabefeld();
@@ -180,8 +180,8 @@ public class Start1 implements ITuWas
            bt[i].setReadonly();
            bt[i].setzeAusgabetext(l.get(i).Genre + "      " + l.get(i).Länge + " min");
            bt[i].setzeSchriftgroesse(11);
-        }  
-       
+        }
+
         et = new Eingabefeld[länge];
         for(int i = 0;i < länge;i++){
            et[i] = new Eingabefeld();
@@ -191,11 +191,11 @@ public class Start1 implements ITuWas
            et[i].setReadonly();
            et[i].setzeAusgabetext("FSK : " + l.get(i).Altersbeschränkung + "      " + l.get(i).Erscheinungsjahr);
            et[i].setzeSchriftgroesse(11);
-        } 
-       
+        }
+
         taste3 = new Taste[länge];
-      
-      
+
+
         for(int i = 0; i<länge;i++)
         {
             taste3[i] = new Taste();
@@ -206,23 +206,23 @@ public class Start1 implements ITuWas
             taste3[i].setzeID(200+i);
             taste3[i].setzeLink(this);
         }
-       
+
         tasteRot.setzeLink(this);
-      
+
         // Die Taste Rot meldet sich mit der ID 0
         tasteRot.setzeID(0);
-       
+
     }
-    
+
     public void login(){
         b = new Bild("back.png" );
         b.setzeGroesse(4000,3800);
-        
+
         eLogin = new Listbox();
         eLogin.setzeGroesse(500, 650);
         eLogin.setzePosition(650,200);
         eLogin.setzeHintergrundfarbe("weiss");
-        
+
         eingabeC = new Eingabefeld();
         eingabeC.setzePosition(700, 250);
         eingabeC.setzeGroesse(400, 50);
@@ -231,7 +231,7 @@ public class Start1 implements ITuWas
         eingabeC.zentrieren();
         eingabeC.setReadonly();
         eingabeC.setzeSchriftgroesse(45);
-        
+
         gLogin = new Eingabefeld();
         gLogin.setzePosition(700, 350);
         gLogin.setzeGroesse(400, 50);
@@ -240,7 +240,7 @@ public class Start1 implements ITuWas
         gLogin.setzeSchriftgroesse(40);
         gLogin.setzeSchriftStilKursiv();
         gLogin.setzeSchriftfarbe("grau");
-        
+
         hLogin = new Eingabefeld();
         hLogin.setzePosition(700, 450);
         hLogin.setzeGroesse(400, 50);
@@ -249,7 +249,7 @@ public class Start1 implements ITuWas
         hLogin.setzeSchriftgroesse(40);
         hLogin.setzeSchriftStilKursiv();
         hLogin.setzeSchriftfarbe("grau");
-        
+
         dLogin = new Taste();
         dLogin.setzeAusgabetext("Noch nicht registriert? Hier klicken zum Registrieren");
         dLogin.setzeGroesse(400,40);
@@ -259,7 +259,7 @@ public class Start1 implements ITuWas
         dLogin.setzeSchriftfarbe("blau");
         dLogin.setzeLink(this);
         dLogin.setzeID(3);
-        
+
         iLogin = new Taste();
         iLogin.setzeAusgabetext("Anmelden");
         iLogin.setzeGroesse(400,50);
@@ -268,7 +268,7 @@ public class Start1 implements ITuWas
         iLogin.setzeID(2);
         iLogin.setzeLink(this);
     }
-    
+
     public void delLogin(){
         b.entfernen();
         eLogin.entfernen();
@@ -278,16 +278,16 @@ public class Start1 implements ITuWas
         dLogin.entfernen();
         iLogin.entfernen();
     }
-    
+
     public void registrieren(){
         b = new Bild("back.png" );
         b.setzeGroesse(4000,3800);
-        
+
         e = new Listbox();
         e.setzeGroesse(500, 650);
         e.setzePosition(650,200);
         e.setzeHintergrundfarbe("weiss");
-        
+
         eingabeB = new Eingabefeld();
         eingabeB.setzePosition(700, 250);
         eingabeB.setzeGroesse(400, 50);
@@ -296,7 +296,7 @@ public class Start1 implements ITuWas
         eingabeB.zentrieren();
         eingabeB.setReadonly();
         eingabeB.setzeSchriftgroesse(45);
-        
+
         d = new Eingabefeld();
         d.setzePosition(700, 340);
         d.setzeGroesse(400, 50);
@@ -305,7 +305,7 @@ public class Start1 implements ITuWas
         d.setzeSchriftgroesse(40);
         d.setzeSchriftStilKursiv();
         d.setzeSchriftfarbe("grau");
-        
+
         f = new Eingabefeld();
         f.setzePosition(700, 410);
         f.setzeGroesse(400, 50);
@@ -314,7 +314,7 @@ public class Start1 implements ITuWas
         f.setzeSchriftgroesse(40);
         f.setzeSchriftStilKursiv();
         f.setzeSchriftfarbe("grau");
-        
+
         g = new Eingabefeld();
         g.setzePosition(700, 480);
         g.setzeGroesse(400, 50);
@@ -323,7 +323,7 @@ public class Start1 implements ITuWas
         g.setzeSchriftgroesse(40);
         g.setzeSchriftStilKursiv();
         g.setzeSchriftfarbe("grau");
-        
+
         h = new Eingabefeld();
         h.setzePosition(700, 550);
         h.setzeGroesse(400, 50);
@@ -332,7 +332,7 @@ public class Start1 implements ITuWas
         h.setzeSchriftgroesse(40);
         h.setzeSchriftStilKursiv();
         h.setzeSchriftfarbe("grau");
-        
+
         i = new Taste();
         i.setzeAusgabetext("Registrieren");
         i.setzeGroesse(400,50);
@@ -341,7 +341,7 @@ public class Start1 implements ITuWas
         i.setzeLink(this);
         i.setzeID(1);
     }
-    
+
     public void delReg(){
         b.entfernen();
         e.entfernen();
@@ -352,7 +352,7 @@ public class Start1 implements ITuWas
         h.entfernen();
         i.entfernen();
     }
-    
+
     public void reg()
     {
         key = suche.send("REGISTER~~+~~" + d.leseText()+"~~+~~"+f.leseText()+"~~+~~"+h.leseText()+"~~+~~"+g.leseText());
@@ -370,7 +370,7 @@ public class Start1 implements ITuWas
             suche("");
         }
     }
-    
+
     public void logn(){
         key  = suche.send("LOGIN~~+~~" + gLogin.leseText()+ "~~+~~"+ hLogin.leseText());
         System.out.println("Login Key " + key);
@@ -387,8 +387,8 @@ public class Start1 implements ITuWas
             suche("");
         }
     }
-    
+
     public void infonachricht(String titel, String nachricht){
-        infohandler = new Infotext(nachricht, titel,this);
+        infohandler.show(nachricht,titel);
     }
 }

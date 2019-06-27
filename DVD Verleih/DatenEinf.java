@@ -32,7 +32,7 @@ public class DatenEinf
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException("E-mail wird bereits genutzt!");
         }
         System.out.println("Records created successfully");
     }
@@ -61,7 +61,7 @@ public class DatenEinf
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException(e.getMessage());
         }
         System.out.println("Records created successfully");
     }
@@ -86,7 +86,7 @@ public class DatenEinf
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException(e.getMessage());
         }
         System.out.println("Records created successfully");
     }

@@ -1,5 +1,3 @@
-
-
 public class Infotext
 
 {
@@ -10,7 +8,7 @@ public class Infotext
     /**
      * Konstruktor für Objekte der Klasse Infotext
      */
-    public Infotext(String Text, String title, Start1 comp)
+    public Infotext(Start1 comp)
     {
         window = new Zeichnung();
         window.resize(600, 400);
@@ -19,12 +17,12 @@ public class Infotext
         window.setResizable(false);
 
         window.setAlwaysOnTop(true);
-        window.setTitle(title);
+        window.setTitle("no");
         
         
         eingabeA = new Eingabefeld();
         eingabeA.setzeGroesse(580,200);
-        eingabeA.setzeAusgabetext(Text);
+        eingabeA.setzeAusgabetext("no");
         eingabeA.setReadonly();
         eingabeA.zentrieren();
         
@@ -36,10 +34,16 @@ public class Infotext
         A.setzeLink(comp);
         
         window.setTransferHandler(null);
-        window.show();
+        window.hide();
     }
     
     public void hide(){
-        window.dispose();
+        window.hide();
+    }
+    
+    public void show(String Text, String title){
+        eingabeA.setzeAusgabetext(Text);
+        window.setTitle(title);
+        window.show();
     }
 }

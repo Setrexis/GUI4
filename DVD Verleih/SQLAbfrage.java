@@ -25,9 +25,9 @@ public class SQLAbfrage
             rs.close();
             c.close();
         }
-        catch ( Exception e ) {
+        catch (Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException(e.getMessage());
         }
         System.out.println("Operation done successfully");
         return list;
@@ -51,7 +51,7 @@ public class SQLAbfrage
             rs.close();
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException(e.getMessage());
         }
 
         Info s = new Info(id,pas,salt);
@@ -72,7 +72,7 @@ public class SQLAbfrage
         }
         catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException(e.getMessage());
         }
         return id;
     }
@@ -88,6 +88,7 @@ public class SQLAbfrage
             rs.close();
         }catch(Exception e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            throw new IllegalArgumentException(e.getMessage());
         }
         return a;
     }

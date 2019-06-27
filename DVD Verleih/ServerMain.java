@@ -2,6 +2,8 @@ import java.util.regex.Pattern;
 import java.util.UUID;
 import java.util.*;
 import java.util.Arrays;
+import java.sql.*;
+
 
 class ServerMain
 {
@@ -9,7 +11,7 @@ class ServerMain
     private SQLAbfrage sql;
     private DatenEinf sqlE;
     private HashMap<String,String[]> authIDKeyPair;
-    private Date time;
+    private java.util.Date time;
     
     /**
      * Constructor for objects of class ServerMain
@@ -20,7 +22,7 @@ class ServerMain
         sql = new SQLAbfrage();
         sqlE = new DatenEinf();
         authIDKeyPair = new HashMap<String,String[]>();
-        time  = new Date();
+        time  = new java.util.Date();
         /*
          * // http://tutorials.jenkov.com/java-multithreaded-servers/multithreaded-server.html
         MultiThreadedServer server = new MultiThreadedServer(9000);
@@ -73,7 +75,13 @@ class ServerMain
             // index 1 email 2 passwort
             
             // Soll die ID das passwort und den salt returnen als Object Array
-            Info dt = sql.LoginInfo(data[1]);
+            Info dt;
+            try{
+                dt = sql.LoginInfo(data[1]);
+            }catch(Exception e){
+                send("ERROR~~+~~" + e);
+                return;
+            }
             
             i = dt.id;
             pas = dt.passwort;
@@ -97,14 +105,16 @@ class ServerMain
             
             byte[] salt = Hash.getSalt();
             byte[] pas = Hash.HashPasswort(data[3], salt);
+            int i = -1;
             
             try{
                 sqlE.registrieren(data[1], data[2], 0, data[1] + " " + data[2], pas, data[4], "", salt);
+                i = sql.LoginAbfrage(data[4], data[3]); 
             }catch(Exception e){
                 send("ERROR~~+~~" + e);
                 return;
             }
-            int i = sql.LoginAbfrage(data[4], data[3]); 
+            
             
             String key = key();
             String[] a = new String[2];
