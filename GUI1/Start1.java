@@ -56,7 +56,8 @@ public class Start1 implements ITuWas
        didex = false;
        infohandler = new Infotext(this);
        window = new Zeichnung();
-       window.resize(1920, 1080);
+       window.locate(0, 0);
+       window.setSize(1920, 1080);
        login();
     }
 
@@ -137,6 +138,7 @@ public class Start1 implements ITuWas
     }
 
     public void displayListe(Liste l){
+        window.setzeScrollbar(true);
         didex = true;
         länge = l.length();
         // Instanzvariable initialisieren
@@ -215,6 +217,7 @@ public class Start1 implements ITuWas
     }
 
     public void login(){
+        window.setzeScrollbar(false);
         b = new Bild("back.png" );
         b.setzeGroesse(4000,3800);
 
@@ -280,6 +283,7 @@ public class Start1 implements ITuWas
     }
 
     public void registrieren(){
+        window.setzeScrollbar(false);
         b = new Bild("back.png" );
         b.setzeGroesse(4000,3800);
 
