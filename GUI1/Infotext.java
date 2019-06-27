@@ -43,6 +43,7 @@ public class Infotext
     
     public void show(String Text, String title){
         eingabeA.setzeAusgabetext(Text);
+        eingabeA.zentrieren();
         window.setTitle(title);
         window.show();
     }
