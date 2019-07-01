@@ -5,6 +5,7 @@ public class Start1 implements ITuWas
     private String key;
     private KomunikationClient suche;
     private boolean didex;
+    private int width;
 
     // zeichnung
     private Zeichnung window;
@@ -56,8 +57,8 @@ public class Start1 implements ITuWas
        didex = false;
        infohandler = new Infotext(this);
        window = new Zeichnung();
-       window.locate(0, 0);
-       window.setSize(1920, 1080);
+       window.maximiere();
+       width = window.WIDTH;
        login();
     }
 
@@ -141,6 +142,7 @@ public class Start1 implements ITuWas
         window.setzeScrollbar(true);
         didex = true;
         länge = l.length();
+        
         // Instanzvariable initialisieren
         eingabeA = new Eingabefeld();
         eingabeA.setzePosition(1350, 100);
@@ -220,14 +222,18 @@ public class Start1 implements ITuWas
         window.setzeScrollbar(false);
         b = new Bild("back.png" );
         b.setzeGroesse(4000,3800);
+        
+        width = window.getWidth() / 2;
+        int box = width - 250;
+        int mini_box = box + 50;
 
         eLogin = new Listbox();
-        eLogin.setzeGroesse(500, 650);
-        eLogin.setzePosition(650,200);
+        eLogin.setzeGroesse(500, 650); 
+        eLogin.setzePosition(box,200); // 650
         eLogin.setzeHintergrundfarbe("weiss");
 
         eingabeC = new Eingabefeld();
-        eingabeC.setzePosition(700, 250);
+        eingabeC.setzePosition(mini_box, 250); // 700
         eingabeC.setzeGroesse(400, 50);
         eingabeC.setzeHintergrundfarbe("orange");
         eingabeC.setzeAusgabetext("Anmeldung");
@@ -236,7 +242,7 @@ public class Start1 implements ITuWas
         eingabeC.setzeSchriftgroesse(45);
 
         gLogin = new Eingabefeld();
-        gLogin.setzePosition(700, 350);
+        gLogin.setzePosition(mini_box, 350);
         gLogin.setzeGroesse(400, 50);
         gLogin.setzeHintergrundfarbe("orange");
         gLogin.setzeAusgabetext("E-Mail");
@@ -245,7 +251,7 @@ public class Start1 implements ITuWas
         gLogin.setzeSchriftfarbe("grau");
 
         hLogin = new Eingabefeld();
-        hLogin.setzePosition(700, 450);
+        hLogin.setzePosition(mini_box, 450);
         hLogin.setzeGroesse(400, 50);
         hLogin.setzeHintergrundfarbe("orange");
         hLogin.setzeAusgabetext("**Kennwort**");
@@ -256,7 +262,7 @@ public class Start1 implements ITuWas
         dLogin = new Taste();
         dLogin.setzeAusgabetext("Noch nicht registriert? Hier klicken zum Registrieren");
         dLogin.setzeGroesse(400,40);
-        dLogin.setzePosition(700, 550);
+        dLogin.setzePosition(mini_box, 550);
         dLogin.setzeHintergrundfarbe("weiss");
         dLogin.setzeSchriftgroesse(11);
         dLogin.setzeSchriftfarbe("blau");
@@ -266,7 +272,7 @@ public class Start1 implements ITuWas
         iLogin = new Taste();
         iLogin.setzeAusgabetext("Anmelden");
         iLogin.setzeGroesse(400,50);
-        iLogin.setzePosition(700, 680);
+        iLogin.setzePosition(mini_box, 680);
         iLogin.setzeHintergrundfarbe("weiss");
         iLogin.setzeID(2);
         iLogin.setzeLink(this);
@@ -286,14 +292,18 @@ public class Start1 implements ITuWas
         window.setzeScrollbar(false);
         b = new Bild("back.png" );
         b.setzeGroesse(4000,3800);
+        
+        width = window.getWidth() / 2;
+        int box = width - 250;
+        int mini_box = box + 50;
 
         e = new Listbox();
         e.setzeGroesse(500, 650);
-        e.setzePosition(650,200);
+        e.setzePosition(box,200);
         e.setzeHintergrundfarbe("weiss");
 
         eingabeB = new Eingabefeld();
-        eingabeB.setzePosition(700, 250);
+        eingabeB.setzePosition(mini_box, 250);
         eingabeB.setzeGroesse(400, 50);
         eingabeB.setzeHintergrundfarbe("orange");
         eingabeB.setzeAusgabetext("Registrierung");
@@ -302,7 +312,7 @@ public class Start1 implements ITuWas
         eingabeB.setzeSchriftgroesse(45);
 
         d = new Eingabefeld();
-        d.setzePosition(700, 340);
+        d.setzePosition(mini_box, 340);
         d.setzeGroesse(400, 50);
         d.setzeHintergrundfarbe("orange");
         d.setzeAusgabetext("Vorname");
@@ -311,7 +321,7 @@ public class Start1 implements ITuWas
         d.setzeSchriftfarbe("grau");
 
         f = new Eingabefeld();
-        f.setzePosition(700, 410);
+        f.setzePosition(mini_box, 410);
         f.setzeGroesse(400, 50);
         f.setzeHintergrundfarbe("orange");
         f.setzeAusgabetext("Nachname");
@@ -320,7 +330,7 @@ public class Start1 implements ITuWas
         f.setzeSchriftfarbe("grau");
 
         g = new Eingabefeld();
-        g.setzePosition(700, 480);
+        g.setzePosition(mini_box, 480);
         g.setzeGroesse(400, 50);
         g.setzeHintergrundfarbe("orange");
         g.setzeAusgabetext("E-Mail");
@@ -329,7 +339,7 @@ public class Start1 implements ITuWas
         g.setzeSchriftfarbe("grau");
 
         h = new Eingabefeld();
-        h.setzePosition(700, 550);
+        h.setzePosition(mini_box, 550);
         h.setzeGroesse(400, 50);
         h.setzeHintergrundfarbe("orange");
         h.setzeAusgabetext("**Kennwort**");
@@ -340,7 +350,7 @@ public class Start1 implements ITuWas
         i = new Taste();
         i.setzeAusgabetext("Registrieren");
         i.setzeGroesse(400,50);
-        i.setzePosition(700, 680);
+        i.setzePosition(mini_box, 680);
         i.setzeHintergrundfarbe("weiss");
         i.setzeLink(this);
         i.setzeID(1);
