@@ -133,7 +133,7 @@ class ServerMain
                 
                 if(abgelaufen(info[1]) == false){
                     if(sql.PrüfenObAusgeliehen(data[2])){
-                        send("ERROR~~+~~Wurde Leider Schon ausgeliehen");
+                        send("ERROR~~+~~Wurde Leider schon ausgeliehen");
                     }else{
                         sqlE.FilmAusleihen(data[2], Integer.parseInt(info[0]));
                         send("ERFOLG");
@@ -141,7 +141,7 @@ class ServerMain
                 }else {
                     //Error
                     authIDKeyPair.remove(key);
-                    send("ERROR~~+~~Key abgelaufen");
+                    send("ERROR~~+~~Login abgelaufen");
                 }
             }catch(Exception e){
                 send("ERROR " + e);

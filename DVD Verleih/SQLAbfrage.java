@@ -92,5 +92,36 @@ public class SQLAbfrage
         }
         return a;
     }
+    
+    public Liste AusgelieheneFilmeAnzeigen(int BenutzerID) {
+        String a = "SELECT* FROM Filme WHERE VerliehenAn = '"+ BenutzerID + "'";
+        SqlCreate c = new SqlCreate();
+        ResultSet rs = c.querry(a);
+        Liste list = new Liste();
+        try
+        {
+            while ( rs.next() ) {
+                String Titel = rs.getString("Titel");
+                int Erscheinungsjahr = rs.getInt("Erscheinungsjahr");
+                int Länge = rs.getInt("Länge");
+                int  Altersbeschränkung = rs.getInt("Altersbeschränkung");
+                String  Genre = rs.getString("Genre");
+                int ID = rs.getInt("ID");
+                boolean Ausgeliehen = rs.getBoolean("Ausgeliehen");
+                String VerliehenAn = rs.getString("VerliehenAn");
 
+                Datenelement e = new Datenelement(Erscheinungsjahr, Länge, ID, Titel, Altersbeschränkung, Genre, Ausgeliehen, VerliehenAn);
+
+                list.einfügen(e);
+            }
+            rs.close();
+            c.close();
+        }
+        catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Operation done successfully");
+        return list;
+    }
 }

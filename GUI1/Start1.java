@@ -9,6 +9,7 @@ public class Start1 implements ITuWas
 
     // zeichnung
     private Zeichnung window;
+    private float scale;
 
     // Info
     private Infotext infohandler;
@@ -58,7 +59,9 @@ public class Start1 implements ITuWas
        infohandler = new Infotext(this);
        window = new Zeichnung();
        window.maximiere();
-       width = window.WIDTH;
+       width = window.getWidth();
+       scale = width/1920;
+       System.out.println(scale);
        login();
     }
 
@@ -114,11 +117,11 @@ public class Start1 implements ITuWas
         String ans = suche.send(info);
         System.out.print(ans);
         if(ans.equals("ERFOLG")){
-            infonachricht("ERFOLG!", st[i].leseText() + "\n"+"wurde Efolgreich ausgeliehen");
+            infonachricht("Ausleihinformation", st[i].leseText() + "\n"+"wurde erfolgreich ausgeliehen");
         }else{
             Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
             String[] data = pattern.split(ans);
-            infonachricht("Fehler!", "Fehler " + data[1]);
+            infonachricht("Ausleihinformation", "Fehler: " + data[1] + ".");
         }
         suche("");
     }
@@ -142,10 +145,12 @@ public class Start1 implements ITuWas
         window.setzeScrollbar(true);
         didex = true;
         länge = l.length();
+        scale = (float)window.getWidth()/(float)1920;
+        System.out.println(scale);
         
         // Instanzvariable initialisieren
         eingabeA = new Eingabefeld();
-        eingabeA.setzePosition(1350, 100);
+        eingabeA.setzePosition((int)(1350 * scale), 100);
         eingabeA.setzeGroesse(400, 50);
         eingabeA.setzeHintergrundfarbe("gruen");
         eingabeA.setzeAusgabetext("Film suchen ...");
@@ -153,21 +158,21 @@ public class Start1 implements ITuWas
 
         tasteRot = new Taste();
         tasteRot.setzeHintergrundfarbe("gruen");
-        tasteRot.setzePosition(1750, 100);
+        tasteRot.setzePosition((int)(1750 * scale), 100);
         tasteRot.setzeAusgabetext("Los!");
 
 
         rr = new RechteckMitRundenEcken[länge];
         for(int i = 0;i < länge;i++){
            rr[i] = new RechteckMitRundenEcken(1600,200,50);
-           rr[i].setzePosition(150, 200+i*300);
+           rr[i].setzePosition((int)(150 * scale), 200+i*300);
            rr[i].setzeFarbe("weiss");
         }
 
         st = new Eingabefeld[länge];
         for(int i = 0;i < länge;i++){
            st[i] = new Eingabefeld();
-           st[i].setzePosition(200, 225+i*300);
+           st[i].setzePosition((int)(200 * scale), 225+i*300);
            st[i].setzeGroesse(500, 40);
            st[i].setzeHintergrundfarbe("gruen");
            st[i].setReadonly();
@@ -178,7 +183,7 @@ public class Start1 implements ITuWas
         bt = new Eingabefeld[länge];
         for(int i = 0;i < länge;i++){
            bt[i] = new Eingabefeld();
-           bt[i].setzePosition(200, 275+i*300);
+           bt[i].setzePosition((int)(200 * scale), 275+i*300);
            bt[i].setzeGroesse(500, 30);
            bt[i].setzeHintergrundfarbe("gruen");
            bt[i].setReadonly();
@@ -189,7 +194,7 @@ public class Start1 implements ITuWas
         et = new Eingabefeld[länge];
         for(int i = 0;i < länge;i++){
            et[i] = new Eingabefeld();
-           et[i].setzePosition(200, 315+i*300);
+           et[i].setzePosition((int)(200 * scale), 315+i*300);
            et[i].setzeGroesse(500, 30);
            et[i].setzeHintergrundfarbe("gruen");
            et[i].setReadonly();
@@ -205,7 +210,7 @@ public class Start1 implements ITuWas
             taste3[i] = new Taste();
             taste3[i].setzeGroesse(200, 50);
             taste3[i].setzeHintergrundfarbe("gelb");
-            taste3[i].setzePosition(1520, 210+i*300);
+            taste3[i].setzePosition((int)(1520 * scale), 210+i*300);
             taste3[i].setzeAusgabetext("Ausleihen");
             taste3[i].setzeID(200+i);
             taste3[i].setzeLink(this);
@@ -375,7 +380,7 @@ public class Start1 implements ITuWas
             System.out.println(key);
             Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
             String[] data = pattern.split(key);
-            infonachricht("Fehler!", "Fehler " + data[1]);
+            infonachricht("Registrationsinformation", "Fehler: " + data[1] + ".");
             key = "";
         }else{
             System.out.println("Del reg");
@@ -392,7 +397,7 @@ public class Start1 implements ITuWas
             System.out.println(key);
             Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
             String[] data = pattern.split(key);
-            infonachricht("Fehler!", "Fehler " + data[1]);
+            infonachricht("Logininformation", "Fehler: " + data[1] + ".");
             key = "";
         }else{
             System.out.println("login löschen");
