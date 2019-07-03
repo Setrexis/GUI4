@@ -65,7 +65,7 @@ class ServerMain
                 System.out.println("Keine Where23");
             }
             Liste l = sql.SQLAbfrage(st);
-            con.send(l);
+            send(l);
         }else if (q.startsWith("LOGIN")){
             byte[] salt =  null;
             byte[] pas = null;
@@ -124,9 +124,6 @@ class ServerMain
             
             send(key);
         }else if (q.startsWith("AUSLEIHEN")){
-            // AusleihID überprüfen und dann ausleih bestetigung schicken.
-            
-            
             String key = data[1];
             try{
                 String[] info = authIDKeyPair.get(key);
@@ -146,11 +143,53 @@ class ServerMain
             }catch(Exception e){
                 send("ERROR " + e);
             }
+        }else if (q.startsWith("ZURÜCKGEBEN")){
+            String key = data[1];
+            try{
+                String[] info = authIDKeyPair.get(key);
+                
+                if(abgelaufen(info[1]) == false){
+                    if(sql.PrüfenObAusgeliehen(data[2])){
+                        sqlE.FilmZurückgeben(data[2]);
+                        send("ERFOLG");
+                    }else{
+                        send("ERROR~~+~~Du hast den Film nicht");
+                    }
+                }else {
+                    //Error
+                    authIDKeyPair.remove(key);
+                    send("ERROR~~+~~Login abgelaufen");
+                }
+            }catch(Exception e){
+                send("ERROR " + e);
+            }
+        }else if (q.startsWith("AUSGELIEHEN")){
+            String key = data[1];
+            try{
+                String[] info = authIDKeyPair.get(key);
+                
+                if(abgelaufen(info[1]) == false){
+                    Liste l = sql.AusgelieheneFilmeAnzeigen(Integer.parseInt(info[0]));
+                    send(l);
+                }else {
+                    //Error
+                    authIDKeyPair.remove(key);
+                    send("ERROR~~+~~Login abgelaufen");
+                }
+            }catch(Exception e){
+                send("ERROR " + e);
+            }
+        }else if(q.startsWith("LOGOUT")){
+            String key = data[1];
+            try{
+                authIDKeyPair.remove(key);
+                send("ERFOLG");
+            }catch(Exception e){
+                send("ERROR " + e);
+            }
         }else{
             send("ERROR1");
         }
-        
-        
     }
     
     public void send(Liste s){
