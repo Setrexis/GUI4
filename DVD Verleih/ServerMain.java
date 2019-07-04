@@ -88,7 +88,7 @@ class ServerMain
             salt = dt.salt;
            
             if (i == -1 || !Arrays.equals(Hash.HashPasswort(data[2], salt), pas)){
-                send("ERROR~~+~~falsches passswort/email!");
+                send("ERROR~~+~~Falsches Passwort/Email!");
             }else{
                 String key = key();
                 String[] a = new String[2];
@@ -130,7 +130,7 @@ class ServerMain
                 
                 if(abgelaufen(info[1]) == false){
                     if(sql.PrüfenObAusgeliehen(data[2])){
-                        send("ERROR~~+~~Wurde Leider schon ausgeliehen");
+                        send("ERROR~~+~~wurde leider schon ausgeliehen!");
                     }else{
                         sqlE.FilmAusleihen(data[2], Integer.parseInt(info[0]));
                         send("ERFOLG");
@@ -153,12 +153,12 @@ class ServerMain
                         sqlE.FilmZurückgeben(data[2]);
                         send("ERFOLG");
                     }else{
-                        send("ERROR~~+~~Du hast den Film nicht");
+                        send("ERROR~~+~~Du hast den Film nicht!");
                     }
                 }else {
                     //Error
                     authIDKeyPair.remove(key);
-                    send("ERROR~~+~~Login abgelaufen");
+                    send("ERROR~~+~~Login abgelaufen!");
                 }
             }catch(Exception e){
                 send("ERROR " + e);
@@ -174,7 +174,7 @@ class ServerMain
                 }else {
                     //Error
                     authIDKeyPair.remove(key);
-                    send("ERROR~~+~~Login abgelaufen");
+                    send("ERROR~~+~~Login abgelaufen!");
                 }
             }catch(Exception e){
                 send("ERROR " + e);

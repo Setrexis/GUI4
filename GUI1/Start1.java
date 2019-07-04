@@ -6,6 +6,7 @@ public class Start1 implements ITuWas
     private KomunikationClient suche;
     private boolean didex;
     private int width;
+    private int status;
 
     // zeichnung
     private Zeichnung window;
@@ -28,6 +29,7 @@ public class Start1 implements ITuWas
     private Eingabefeld[] et;
     private Liste data;
     private int länge;
+    private Taste z;
 
     //register
     private Eingabefeld eingabeB;
@@ -38,6 +40,7 @@ public class Start1 implements ITuWas
     private Eingabefeld g;
     private Eingabefeld h;
     private Taste i;
+    private Taste y;
 
 
     //Login
@@ -91,12 +94,21 @@ public class Start1 implements ITuWas
         {
             this.ausleihen(ID - 200); // Die grünen Tasten
         }
+        else if (ID >= 300  && ID <= 300 + länge)
+        {
+            this.ausleihen(ID - 300); // Die grünen Tasten
+        }
+        else if (ID == 5)
+        {
+            this.delReg();
+            this.login();
+        }
     }
 
     public void suche(String titel)
     {
         String st = "";
-
+        status = 1;
         if(titel.equals("") || titel.equals("Film suchen ...")){
             st = "QUERY~~+~~*";
         }else{
@@ -104,6 +116,16 @@ public class Start1 implements ITuWas
         }
         data = suche.querry(st);
         System.out.println(data);
+        if(didex){
+            entfernenListe();
+        }
+        displayListe(data);
+    }
+    
+    public void ausleihinfo(){
+        String st = "AUSGELIEHEN~~+~~" + key;
+        status = 2;
+        data = suche.querry(st);
         if(didex){
             entfernenListe();
         }
@@ -118,6 +140,22 @@ public class Start1 implements ITuWas
         System.out.print(ans);
         if(ans.equals("ERFOLG")){
             infonachricht("Ausleihinformation", st[i].leseText() + "\n"+"wurde erfolgreich ausgeliehen");
+        }else{
+            Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+            String[] data = pattern.split(ans);
+            infonachricht("Ausleihinformation", "Fehler: " + data[1] + ".");
+        }
+        suche("");
+    }
+    
+    public void zurückgeben(int i)
+    {
+        System.out.println("ZURÜCKGEBEN " + st[i].leseText() + " Mit " + key);
+        String info = "ZURÜCKGEBEN~~+~~" + key + "~~+~~" +st[i].leseText();
+        String ans = suche.send(info);
+        System.out.print(ans);
+        if(ans.equals("ERFOLG")){
+            infonachricht("Ausleihinformation", st[i].leseText() + "\n"+"wurde erfolgreich zurückgegeben.");
         }else{
             Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
             String[] data = pattern.split(ans);
@@ -211,8 +249,13 @@ public class Start1 implements ITuWas
             taste3[i].setzeGroesse(200, 50);
             taste3[i].setzeHintergrundfarbe("gelb");
             taste3[i].setzePosition((int)(1520 * scale), 210+i*300);
-            taste3[i].setzeAusgabetext("Ausleihen");
-            taste3[i].setzeID(200+i);
+            if (status == 1){
+                taste3[i].setzeAusgabetext("Ausleihen");
+                taste3[i].setzeID(200+i);
+            }else {
+                taste3[i].setzeAusgabetext("Zurückgeben");
+                taste3[i].setzeID(300+i);
+            }
             taste3[i].setzeLink(this);
         }
 
@@ -220,6 +263,12 @@ public class Start1 implements ITuWas
 
         // Die Taste Rot meldet sich mit der ID 0
         tasteRot.setzeID(0);
+        
+        z = new Taste();
+        z.setzeAusgabetext("Meine Mediathek");
+        z.setzeHintergrundfarbe("grau");
+        z.setzeGroesse(300, 50);
+        z.setzePosition((int)(150 * scale), 100);
 
     }
 
@@ -281,6 +330,24 @@ public class Start1 implements ITuWas
         iLogin.setzeHintergrundfarbe("weiss");
         iLogin.setzeID(2);
         iLogin.setzeLink(this);
+        
+        i = new Taste();
+        i.setzeAusgabetext("Registrieren");
+        i.setzeGroesse(400,50);
+        i.setzePosition(mini_box, 680);
+        i.setzeHintergrundfarbe("weiss");
+        i.setzeLink(this);
+        i.setzeID(1);
+        
+        y = new Taste();
+        y.setzeAusgabetext("Zurück zur Anmeldung");
+        y.setzeGroesse(400,40);
+        y.setzePosition(mini_box,780);
+        y.setzeHintergrundfarbe("weiss");
+        y.setzeSchriftgroesse(11);
+        y.setzeSchriftfarbe("blau");
+        y.setzeLink(this);
+        y.setzeID(5);
     }
 
     public void delLogin(){
