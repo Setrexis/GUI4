@@ -196,12 +196,12 @@ public class Start1 implements ITuWas
         eingabeA = new Eingabefeld();
         eingabeA.setzePosition((int)(1350 * scale), 100);
         eingabeA.setzeGroesse(400, 50);
-        eingabeA.setzeHintergrundfarbe("gruen");
+        eingabeA.setzeHintergrundfarbe("blau");
         eingabeA.setzeAusgabetext("Film suchen ...");
-        //eingabeA.uuu
+        eingabeA.setOnClickDelete();
 
         tasteRot = new Taste();
-        tasteRot.setzeHintergrundfarbe("gruen");
+        tasteRot.setzeHintergrundfarbe("blau");
         tasteRot.setzePosition((int)(1750 * scale), 100);
         tasteRot.setzeAusgabetext("Los!");
         
@@ -213,7 +213,7 @@ public class Start1 implements ITuWas
             z.setzeAusgabetext("Zurück");
             z.setzeLink(this, 0);
         }
-        z.setzeHintergrundfarbe("grau");
+        z.setzeHintergrundfarbe("weiss");
         z.setzeGroesse(300, 50);
         z.setzePosition((int)(150 * scale), 100);
 
@@ -231,7 +231,7 @@ public class Start1 implements ITuWas
            st[i] = new Eingabefeld();
            st[i].setzePosition((int)(200 * scale), 225+i*300);
            st[i].setzeGroesse(500, 40);
-           st[i].setzeHintergrundfarbe("gruen");
+           st[i].setzeHintergrundfarbe("weiss");
            st[i].setReadonly();
            st[i].setzeAusgabetext(l.get(i).getTitle());
            st[i].setzeSchriftgroesse(18);
@@ -239,7 +239,7 @@ public class Start1 implements ITuWas
            bt[i] = new Eingabefeld();
            bt[i].setzePosition((int)(200 * scale), 275+i*300);
            bt[i].setzeGroesse(500, 30);
-           bt[i].setzeHintergrundfarbe("gruen");
+           bt[i].setzeHintergrundfarbe("weiss");
            bt[i].setReadonly();
            bt[i].setzeAusgabetext(l.get(i).Genre + "      " + l.get(i).Länge + " min");
            bt[i].setzeSchriftgroesse(11);
@@ -247,14 +247,14 @@ public class Start1 implements ITuWas
            et[i] = new Eingabefeld();
            et[i].setzePosition((int)(200 * scale), 315+i*300);
            et[i].setzeGroesse(500, 30);
-           et[i].setzeHintergrundfarbe("gruen");
+           et[i].setzeHintergrundfarbe("weiss");
            et[i].setReadonly();
            et[i].setzeAusgabetext("FSK : " + l.get(i).Altersbeschränkung + "      " + l.get(i).Erscheinungsjahr);
            et[i].setzeSchriftgroesse(11);
            
            taste3[i] = new Taste();
            taste3[i].setzeGroesse(200, 50);
-           taste3[i].setzeHintergrundfarbe("gelb");
+           taste3[i].setzeHintergrundfarbe("blau");
            taste3[i].setzePosition((int)(1520 * scale), 210+i*300);
            if (status == 1){
                taste3[i].setzeAusgabetext("Ausleihen");
@@ -299,6 +299,7 @@ public class Start1 implements ITuWas
         gLogin.setzeSchriftgroesse(40);
         gLogin.setzeSchriftStilKursiv();
         gLogin.setzeSchriftfarbe("grau");
+        gLogin.setOnClickDelete();
         gLogin.setzeLink(this, 7);
 
         hLogin = new Passwortfeld();
@@ -371,6 +372,7 @@ public class Start1 implements ITuWas
         d.setzeSchriftgroesse(40);
         d.setzeSchriftStilKursiv();
         d.setzeSchriftfarbe("grau");
+        d.setOnClickDelete();
 
         f = new Eingabefeld();
         f.setzePosition(mini_box, 410);
@@ -380,6 +382,7 @@ public class Start1 implements ITuWas
         f.setzeSchriftgroesse(40);
         f.setzeSchriftStilKursiv();
         f.setzeSchriftfarbe("grau");
+        f.setOnClickDelete();
 
         g = new Eingabefeld();
         g.setzePosition(mini_box, 480);
@@ -389,6 +392,7 @@ public class Start1 implements ITuWas
         g.setzeSchriftgroesse(40);
         g.setzeSchriftStilKursiv();
         g.setzeSchriftfarbe("grau");
+        g.setOnClickDelete();
 
         h = new Passwortfeld();
         h.setzePosition(mini_box, 550);
