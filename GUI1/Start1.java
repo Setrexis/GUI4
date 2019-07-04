@@ -1,4 +1,5 @@
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.awt.Color;
 
 
@@ -472,19 +473,41 @@ public class Start1 implements ITuWas
 
     public void reg()
     {
-        key = suche.send("REGISTER~~+~~" + d.leseText()+"~~+~~"+f.leseText()+"~~+~~"+h.leseText()+"~~+~~"+g.leseText());
-        System.out.println("Reg Key " + key);
-        if(key.startsWith("ERROR") || key.equals("")){
-            System.out.println(key);
-            Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
-            String[] data = pattern.split(key);
-            infonachricht("Registrationsinformation", "Fehler: " + data[1] + ".");
-            key = "";
+        String name = d.leseText();
+        String nachname = f.leseText();
+        String email = g.leseText();
+        String passwort = h.leseText();
+        
+        Pattern email_pattern = Pattern.compile("^[A-Za-z0-9._]{1,16}+@{1}+[a-z]{1,7}\\.[a-z]{1,3}$");
+        Matcher mat = email_pattern.matcher(email);
+        System.out.println(mat.matches() + " " + email);
+        
+        if(name.length() < 2 || name.equals("Vorname")){
+            infonachricht("Registrationsinformation", "Vorname zu kurz.");
+        }else if(nachname.length() < 2 || nachname.equals("Nachname")){
+            infonachricht("Registrationsinformation", "Nachname zu kurz.");
+        }else if(email.length() < 6 || email.equals("E-Mail")){
+            infonachricht("Registrationsinformation", "E-Mail zu kurz.");
+        }else if(passwort.length() < 6 || passwort.equals("**Kennwort**")){
+            infonachricht("Registrationsinformation", "Passwort zu kurz.");
+        }else if(mat.matches() == false){
+            infonachricht("Registrationsinformation", "Bitte eine richtige E-Mail angeben");
         }else{
-            System.out.println("Del reg");
-            delReg();
-            System.out.println("Fertig");
-            suche("");
+            
+            key = suche.send("REGISTER~~+~~" + d.leseText()+"~~+~~"+f.leseText()+"~~+~~"+h.leseText()+"~~+~~"+g.leseText());
+            System.out.println("Reg Key " + key);
+            if(key.startsWith("ERROR") || key.equals("")){
+                System.out.println(key);
+                Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+                String[] data = pattern.split(key);
+                infonachricht("Registrationsinformation", "Fehler: " + data[1] + ".");
+                key = "";
+            }else{
+                System.out.println("Del reg");
+                delReg();
+                System.out.println("Fertig");
+                suche("");
+            }
         }
     }
 
