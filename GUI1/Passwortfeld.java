@@ -478,6 +478,7 @@ class CPasswortfeld extends BasisComponente implements ActionListener {
 		eingabe.setEchoChar((char)0);
 		setzeBasisfarbe("weiss");
 		eingabe.setFont(f);
+		eingabe.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		eingabe.setHorizontalAlignment(SwingConstants.CENTER);
 		eingabe.addActionListener(this);
 		eingabe.addMouseListener(new MouseAdapter() {

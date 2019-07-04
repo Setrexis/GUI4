@@ -70,25 +70,24 @@ public class Start1 implements ITuWas
        suche = new KomunikationClient(2526);
        key = "";
        didex = false;
-       infohandler = new Infotext(this);
+       priemereFarbe = "weiss";
+       secundereFarbe = "blau";
+       dritteFarbe = "weiss";
+       loginFarbe = "weiss";
+       loginZweitFarbe = "blau";
+       loginDrittFarbe = "hellgrau";
+       bgFarbe = new Color(122,122,122);
+       infohandler = new Infotext(this,bgFarbe,priemereFarbe,secundereFarbe);
        window = new Zeichnung();
        window.maximiere();
        width = window.getWidth();
        scale = width/1920;
        System.out.println(scale);
-       priemereFarbe = "weiss";
-       secundereFarbe = "blau";
-       dritteFarbe = "weiss";
-       loginFarbe = "orange";
-       loginZweitFarbe = "grau";
-       loginDrittFarbe = "weiss";
-       bgFarbe = new Color(122,122,122);
        window.setBackground(bgFarbe.LIGHT_GRAY);
        login();
     }
 
     public void tuWas(int ID) { // Diese Methode wird von den Tasten aufgerufen
-
         if (ID == 0)
         {
             this.suche(eingabeA.leseText()); // Die Taste rot

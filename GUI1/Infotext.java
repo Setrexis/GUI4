@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class Infotext
 
 {
@@ -8,7 +10,7 @@ public class Infotext
     /**
      * Konstruktor für Objekte der Klasse Infotext
      */
-    public Infotext(Start1 comp)
+    public Infotext(Start1 comp, Color bgColor,String pc, String sc)
     {
         window = new Zeichnung();
         window.resize(600, 400);
@@ -18,6 +20,7 @@ public class Infotext
 
         window.setAlwaysOnTop(true);
         window.setTitle("no");
+        window.setBackground(bgColor);
         
         
         eingabeA = new Eingabefeld();
@@ -25,6 +28,8 @@ public class Infotext
         eingabeA.setzeAusgabetext("no");
         eingabeA.setReadonly();
         eingabeA.zentrieren();
+        eingabeA.setzeHintergrundfarbe(pc);
+        eingabeA.setzeSchriftfarbe(sc);
         
         A = new Taste();
         A.setzeGroesse(80, 50);
@@ -32,6 +37,8 @@ public class Infotext
         A.setzeAusgabetext("OK");
         A.setzeID(4);
         A.setzeLink(comp);
+        A.setzeHintergrundfarbe(pc);
+        A.setzeSchriftfarbe(sc);
         
         window.setTransferHandler(null);
         window.hide();

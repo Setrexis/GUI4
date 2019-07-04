@@ -468,6 +468,7 @@ class CEingabefeld extends BasisComponente implements ActionListener {
         eingabe = new JTextField(text);
         setzeBasisfarbe("weiss");
         eingabe.setFont(f);
+        eingabe.setBorder(javax.swing.BorderFactory.createEmptyBorder());
         eingabe.setHorizontalAlignment(SwingConstants.CENTER);
         eingabe.addActionListener(this);
         eingabe.updateUI();
