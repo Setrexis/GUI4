@@ -1,5 +1,6 @@
 import java.util.regex.Pattern;
 
+
 public class Start1 implements ITuWas
 {
     private String key;
@@ -38,7 +39,7 @@ public class Start1 implements ITuWas
     private Eingabefeld d;
     private Eingabefeld f;
     private Eingabefeld g;
-    private Eingabefeld h;
+    private Passwortfeld h;
     private Taste i;
     private Taste y;
 
@@ -47,7 +48,7 @@ public class Start1 implements ITuWas
     private Eingabefeld eingabeC;
     private Listbox eLogin;
     private Eingabefeld gLogin;
-    private Eingabefeld hLogin;
+    private Passwortfeld hLogin;
     private Taste dLogin;
     private Taste iLogin;
 
@@ -96,12 +97,16 @@ public class Start1 implements ITuWas
         }
         else if (ID >= 300  && ID <= 300 + länge)
         {
-            this.ausleihen(ID - 300); // Die grünen Tasten
+            this.zurückgeben(ID - 300); // Die grünen Tasten
         }
         else if (ID == 5)
         {
             this.delReg();
             this.login();
+        }else if (ID == 6){
+            this.ausleihinfo();
+        }else if (ID == 7){
+            
         }
     }
 
@@ -161,13 +166,14 @@ public class Start1 implements ITuWas
             String[] data = pattern.split(ans);
             infonachricht("Ausleihinformation", "Fehler: " + data[1] + ".");
         }
-        suche("");
+        ausleihinfo();
     }
 
     public void entfernenListe(){
 
         eingabeA.entfernen();
         tasteRot.entfernen();
+        z.entfernen();
 
         for(int i = 0;i < länge;i++){
             rr[i].entfernen();
@@ -198,17 +204,30 @@ public class Start1 implements ITuWas
         tasteRot.setzeHintergrundfarbe("gruen");
         tasteRot.setzePosition((int)(1750 * scale), 100);
         tasteRot.setzeAusgabetext("Los!");
+        
+        z = new Taste();
+        if (status == 1){
+            z.setzeAusgabetext("Meine Mediathek");
+            z.setzeLink(this, 6);
+        }else{
+            z.setzeAusgabetext("Zurück");
+            z.setzeLink(this, 0);
+        }
+        z.setzeHintergrundfarbe("grau");
+        z.setzeGroesse(300, 50);
+        z.setzePosition((int)(150 * scale), 100);
 
 
         rr = new RechteckMitRundenEcken[länge];
+        st = new Eingabefeld[länge];
+        bt = new Eingabefeld[länge];
+        et = new Eingabefeld[länge];
+        taste3 = new Taste[länge];
         for(int i = 0;i < länge;i++){
            rr[i] = new RechteckMitRundenEcken(1600,200,50);
            rr[i].setzePosition((int)(150 * scale), 200+i*300);
            rr[i].setzeFarbe("weiss");
-        }
-
-        st = new Eingabefeld[länge];
-        for(int i = 0;i < länge;i++){
+           
            st[i] = new Eingabefeld();
            st[i].setzePosition((int)(200 * scale), 225+i*300);
            st[i].setzeGroesse(500, 40);
@@ -216,10 +235,7 @@ public class Start1 implements ITuWas
            st[i].setReadonly();
            st[i].setzeAusgabetext(l.get(i).getTitle());
            st[i].setzeSchriftgroesse(18);
-        }
-
-        bt = new Eingabefeld[länge];
-        for(int i = 0;i < länge;i++){
+           
            bt[i] = new Eingabefeld();
            bt[i].setzePosition((int)(200 * scale), 275+i*300);
            bt[i].setzeGroesse(500, 30);
@@ -227,10 +243,7 @@ public class Start1 implements ITuWas
            bt[i].setReadonly();
            bt[i].setzeAusgabetext(l.get(i).Genre + "      " + l.get(i).Länge + " min");
            bt[i].setzeSchriftgroesse(11);
-        }
-
-        et = new Eingabefeld[länge];
-        for(int i = 0;i < länge;i++){
+           
            et[i] = new Eingabefeld();
            et[i].setzePosition((int)(200 * scale), 315+i*300);
            et[i].setzeGroesse(500, 30);
@@ -238,38 +251,21 @@ public class Start1 implements ITuWas
            et[i].setReadonly();
            et[i].setzeAusgabetext("FSK : " + l.get(i).Altersbeschränkung + "      " + l.get(i).Erscheinungsjahr);
            et[i].setzeSchriftgroesse(11);
+           
+           taste3[i] = new Taste();
+           taste3[i].setzeGroesse(200, 50);
+           taste3[i].setzeHintergrundfarbe("gelb");
+           taste3[i].setzePosition((int)(1520 * scale), 210+i*300);
+           if (status == 1){
+               taste3[i].setzeAusgabetext("Ausleihen");
+               taste3[i].setzeID(200+i);
+           }else {
+               taste3[i].setzeAusgabetext("Zurückgeben");
+               taste3[i].setzeID(300+i);
+           }
+           taste3[i].setzeLink(this);
         }
-
-        taste3 = new Taste[länge];
-
-
-        for(int i = 0; i<länge;i++)
-        {
-            taste3[i] = new Taste();
-            taste3[i].setzeGroesse(200, 50);
-            taste3[i].setzeHintergrundfarbe("gelb");
-            taste3[i].setzePosition((int)(1520 * scale), 210+i*300);
-            if (status == 1){
-                taste3[i].setzeAusgabetext("Ausleihen");
-                taste3[i].setzeID(200+i);
-            }else {
-                taste3[i].setzeAusgabetext("Zurückgeben");
-                taste3[i].setzeID(300+i);
-            }
-            taste3[i].setzeLink(this);
-        }
-
-        tasteRot.setzeLink(this);
-
-        // Die Taste Rot meldet sich mit der ID 0
-        tasteRot.setzeID(0);
-        
-        z = new Taste();
-        z.setzeAusgabetext("Meine Mediathek");
-        z.setzeHintergrundfarbe("grau");
-        z.setzeGroesse(300, 50);
-        z.setzePosition((int)(150 * scale), 100);
-
+        tasteRot.setzeLink(this, 0);
     }
 
     public void login(){
@@ -303,8 +299,9 @@ public class Start1 implements ITuWas
         gLogin.setzeSchriftgroesse(40);
         gLogin.setzeSchriftStilKursiv();
         gLogin.setzeSchriftfarbe("grau");
+        gLogin.setzeLink(this, 7);
 
-        hLogin = new Eingabefeld();
+        hLogin = new Passwortfeld();
         hLogin.setzePosition(mini_box, 450);
         hLogin.setzeGroesse(400, 50);
         hLogin.setzeHintergrundfarbe("orange");
@@ -312,6 +309,7 @@ public class Start1 implements ITuWas
         hLogin.setzeSchriftgroesse(40);
         hLogin.setzeSchriftStilKursiv();
         hLogin.setzeSchriftfarbe("grau");
+        hLogin.setzeLink(this, 2);
 
         dLogin = new Taste();
         dLogin.setzeAusgabetext("Noch nicht registriert? Hier klicken zum Registrieren");
@@ -330,24 +328,6 @@ public class Start1 implements ITuWas
         iLogin.setzeHintergrundfarbe("weiss");
         iLogin.setzeID(2);
         iLogin.setzeLink(this);
-        
-        i = new Taste();
-        i.setzeAusgabetext("Registrieren");
-        i.setzeGroesse(400,50);
-        i.setzePosition(mini_box, 680);
-        i.setzeHintergrundfarbe("weiss");
-        i.setzeLink(this);
-        i.setzeID(1);
-        
-        y = new Taste();
-        y.setzeAusgabetext("Zurück zur Anmeldung");
-        y.setzeGroesse(400,40);
-        y.setzePosition(mini_box,780);
-        y.setzeHintergrundfarbe("weiss");
-        y.setzeSchriftgroesse(11);
-        y.setzeSchriftfarbe("blau");
-        y.setzeLink(this);
-        y.setzeID(5);
     }
 
     public void delLogin(){
@@ -410,7 +390,7 @@ public class Start1 implements ITuWas
         g.setzeSchriftStilKursiv();
         g.setzeSchriftfarbe("grau");
 
-        h = new Eingabefeld();
+        h = new Passwortfeld();
         h.setzePosition(mini_box, 550);
         h.setzeGroesse(400, 50);
         h.setzeHintergrundfarbe("orange");
@@ -418,6 +398,7 @@ public class Start1 implements ITuWas
         h.setzeSchriftgroesse(40);
         h.setzeSchriftStilKursiv();
         h.setzeSchriftfarbe("grau");
+        h.setzeLink(this, 1);
 
         i = new Taste();
         i.setzeAusgabetext("Registrieren");
@@ -426,6 +407,16 @@ public class Start1 implements ITuWas
         i.setzeHintergrundfarbe("weiss");
         i.setzeLink(this);
         i.setzeID(1);
+        
+        y = new Taste();
+        y.setzeAusgabetext("Zurück zur Anmeldung");
+        y.setzeGroesse(400,40);
+        y.setzePosition(mini_box,780);
+        y.setzeHintergrundfarbe("weiss");
+        y.setzeSchriftgroesse(11);
+        y.setzeSchriftfarbe("blau");
+        y.setzeLink(this);
+        y.setzeID(5);
     }
 
     public void delReg(){
@@ -437,6 +428,7 @@ public class Start1 implements ITuWas
         g.entfernen();
         h.entfernen();
         i.entfernen();
+        y.entfernen();
     }
 
     public void reg()

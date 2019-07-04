@@ -76,7 +76,7 @@ public class DatenEinf
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "UPDATE Filme SET Ausgeliehen = false, VerliehenAn = null, VerliehenBis WHERE Titel = '" + Filmtitel + "';";
+            String sql = "UPDATE Filme SET Ausgeliehen = false, VerliehenAn = null, VerliehenBis = null WHERE Titel = '" + Filmtitel + "';";
             
             System.out.println(sql);    
             stmt.executeUpdate(sql);

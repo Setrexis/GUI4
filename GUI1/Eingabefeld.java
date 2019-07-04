@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -464,6 +466,12 @@ class CEingabefeld extends BasisComponente implements ActionListener {
 		eingabe.setFont(f);
 		eingabe.setHorizontalAlignment(SwingConstants.CENTER);
 		eingabe.addActionListener(this);
+		eingabe.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        eingabe.setText("");
+                    }
+                });
 		eingabe.updateUI();
 		this.add(eingabe);
 	}

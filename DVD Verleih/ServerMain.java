@@ -52,17 +52,16 @@ class ServerMain
         Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
         String[] data = pattern.split(q);
         for(String a : data){
-            System.out.println(a);
+            System.out.print(a + " ");
         }
+        System.out.println("");
         if (q.startsWith("QUERY")){
             String st = "";
             System.out.println(data[0]);
             if(data[1].equals("*")){
                 st = "SELECT * FROM Filme WHERE Ausgeliehen = 0";
-                System.out.println("Keine Where");
             }else{
                 st = "SELECT * FROM Filme WHERE Ausgeliehen = 0 and (Titel = '" + data[1]+ "' or Genre ='" + data[1]+ "' or Erscheinungsjahr='"+ data[1]+ "' or Länge='"+ data[1]+ "')";
-                System.out.println("Keine Where23");
             }
             Liste l = sql.SQLAbfrage(st);
             send(l);
