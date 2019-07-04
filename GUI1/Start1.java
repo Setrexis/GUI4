@@ -41,6 +41,7 @@ public class Start1 implements ITuWas
     private Liste data;
     private int länge;
     private Taste z;
+    private Taste p;
 
     //register
     private Eingabefeld eingabeB;
@@ -123,7 +124,7 @@ public class Start1 implements ITuWas
         }else if (ID == 6){
             this.ausleihinfo();
         }else if (ID == 7){
-            
+            this.logout();
         }
     }
 
@@ -191,6 +192,7 @@ public class Start1 implements ITuWas
         eingabeA.entfernen();
         tasteRot.entfernen();
         z.entfernen();
+        p.entfernen();
 
         for(int i = 0;i < länge;i++){
             rr[i].entfernen();
@@ -236,6 +238,15 @@ public class Start1 implements ITuWas
         z.setzeSchriftfarbe(secundereFarbe);
         z.setzeGroesse(300, 50);
         z.setzePosition((int)(150 * scale), 100);
+        
+        p = new Taste();
+        p.setzeAusgabetext("Logout");
+        p.setzeHintergrundfarbe(priemereFarbe);
+        p.setzeSchriftfarbe(secundereFarbe);
+        p.setzePosition((int)(1350 * scale), 150);
+        p.setzeGroesse(400, 30);
+        p.setzeID(7);
+        p.setzeLink(this);
 
 
         rr = new RechteckMitRundenEcken[länge];
@@ -496,5 +507,21 @@ public class Start1 implements ITuWas
 
     public void infonachricht(String titel, String nachricht){
         infohandler.show(nachricht,titel);
+    }
+    
+    public void logout(){
+        String l = "LOGOUT~~+~~"+ key;
+        String ans = suche.send(l);
+        if(ans.startsWith("ERFOLG")){
+            entfernenListe();
+            login();
+            key = "";
+        }else{
+            System.out.println(key);
+            Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+            String[] data = pattern.split(key);
+            infonachricht("Logoutinformation", "Fehler: " + data[1] + ".");
+        }
+        
     }
 }

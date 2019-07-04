@@ -187,7 +187,7 @@ class ServerMain
                 send("ERROR " + e);
             }
         }else{
-            send("ERROR1");
+            send("ERROR~~+~~1");
         }
     }
     
