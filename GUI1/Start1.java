@@ -1,4 +1,5 @@
 import java.util.regex.Pattern;
+import java.awt.Color;
 
 
 public class Start1 implements ITuWas
@@ -20,6 +21,7 @@ public class Start1 implements ITuWas
     private String loginFarbe;
     private String loginZweitFarbe;
     private String loginDrittFarbe;
+    private Color bgFarbe;
 
     // Info
     private Infotext infohandler;
@@ -80,6 +82,8 @@ public class Start1 implements ITuWas
        loginFarbe = "orange";
        loginZweitFarbe = "grau";
        loginDrittFarbe = "weiss";
+       bgFarbe = new Color(122,122,122);
+       window.setBackground(bgFarbe.LIGHT_GRAY);
        login();
     }
 
