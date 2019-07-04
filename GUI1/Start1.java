@@ -12,6 +12,14 @@ public class Start1 implements ITuWas
     // zeichnung
     private Zeichnung window;
     private float scale;
+    
+    //style
+    private String priemereFarbe;
+    private String secundereFarbe;
+    private String dritteFarbe;
+    private String loginFarbe;
+    private String loginZweitFarbe;
+    private String loginDrittFarbe;
 
     // Info
     private Infotext infohandler;
@@ -66,6 +74,12 @@ public class Start1 implements ITuWas
        width = window.getWidth();
        scale = width/1920;
        System.out.println(scale);
+       priemereFarbe = "weiss";
+       secundereFarbe = "blau";
+       dritteFarbe = "weiss";
+       loginFarbe = "orange";
+       loginZweitFarbe = "grau";
+       loginDrittFarbe = "weiss";
        login();
     }
 
@@ -196,12 +210,14 @@ public class Start1 implements ITuWas
         eingabeA = new Eingabefeld();
         eingabeA.setzePosition((int)(1350 * scale), 100);
         eingabeA.setzeGroesse(400, 50);
-        eingabeA.setzeHintergrundfarbe("blau");
+        eingabeA.setzeHintergrundfarbe(secundereFarbe);
+        eingabeA.setzeSchriftfarbe(priemereFarbe);
         eingabeA.setzeAusgabetext("Film suchen ...");
         eingabeA.setOnClickDelete();
 
         tasteRot = new Taste();
-        tasteRot.setzeHintergrundfarbe("blau");
+        tasteRot.setzeHintergrundfarbe(secundereFarbe);
+        tasteRot.setzeSchriftfarbe(priemereFarbe);
         tasteRot.setzePosition((int)(1750 * scale), 100);
         tasteRot.setzeAusgabetext("Los!");
         
@@ -213,7 +229,8 @@ public class Start1 implements ITuWas
             z.setzeAusgabetext("Zurück");
             z.setzeLink(this, 0);
         }
-        z.setzeHintergrundfarbe("weiss");
+        z.setzeHintergrundfarbe(priemereFarbe);
+        z.setzeSchriftfarbe(secundereFarbe);
         z.setzeGroesse(300, 50);
         z.setzePosition((int)(150 * scale), 100);
 
@@ -226,35 +243,39 @@ public class Start1 implements ITuWas
         for(int i = 0;i < länge;i++){
            rr[i] = new RechteckMitRundenEcken(1600,200,50);
            rr[i].setzePosition((int)(150 * scale), 200+i*300);
-           rr[i].setzeFarbe("weiss");
+           rr[i].setzeFarbe(dritteFarbe);
            
            st[i] = new Eingabefeld();
            st[i].setzePosition((int)(200 * scale), 225+i*300);
            st[i].setzeGroesse(500, 40);
-           st[i].setzeHintergrundfarbe("weiss");
+           st[i].setzeHintergrundfarbe(priemereFarbe);
            st[i].setReadonly();
            st[i].setzeAusgabetext(l.get(i).getTitle());
            st[i].setzeSchriftgroesse(18);
+           st[i].setzeSchriftfarbe(secundereFarbe);
            
            bt[i] = new Eingabefeld();
            bt[i].setzePosition((int)(200 * scale), 275+i*300);
            bt[i].setzeGroesse(500, 30);
-           bt[i].setzeHintergrundfarbe("weiss");
+           bt[i].setzeHintergrundfarbe(priemereFarbe);
            bt[i].setReadonly();
            bt[i].setzeAusgabetext(l.get(i).Genre + "      " + l.get(i).Länge + " min");
            bt[i].setzeSchriftgroesse(11);
+           bt[i].setzeSchriftfarbe(secundereFarbe);
            
            et[i] = new Eingabefeld();
            et[i].setzePosition((int)(200 * scale), 315+i*300);
            et[i].setzeGroesse(500, 30);
-           et[i].setzeHintergrundfarbe("weiss");
+           et[i].setzeHintergrundfarbe(priemereFarbe);
            et[i].setReadonly();
            et[i].setzeAusgabetext("FSK : " + l.get(i).Altersbeschränkung + "      " + l.get(i).Erscheinungsjahr);
            et[i].setzeSchriftgroesse(11);
+           et[i].setzeSchriftfarbe(secundereFarbe);
            
            taste3[i] = new Taste();
            taste3[i].setzeGroesse(200, 50);
-           taste3[i].setzeHintergrundfarbe("blau");
+           taste3[i].setzeHintergrundfarbe(secundereFarbe);
+           taste3[i].setzeSchriftfarbe(priemereFarbe);
            taste3[i].setzePosition((int)(1520 * scale), 210+i*300);
            if (status == 1){
                taste3[i].setzeAusgabetext("Ausleihen");
@@ -280,12 +301,12 @@ public class Start1 implements ITuWas
         eLogin = new Listbox();
         eLogin.setzeGroesse(500, 650); 
         eLogin.setzePosition(box,200); // 650
-        eLogin.setzeHintergrundfarbe("weiss");
+        eLogin.setzeHintergrundfarbe(loginDrittFarbe);
 
         eingabeC = new Eingabefeld();
         eingabeC.setzePosition(mini_box, 250); // 700
         eingabeC.setzeGroesse(400, 50);
-        eingabeC.setzeHintergrundfarbe("orange");
+        eingabeC.setzeHintergrundfarbe(loginFarbe);
         eingabeC.setzeAusgabetext("Anmeldung");
         eingabeC.zentrieren();
         eingabeC.setReadonly();
@@ -294,31 +315,31 @@ public class Start1 implements ITuWas
         gLogin = new Eingabefeld();
         gLogin.setzePosition(mini_box, 350);
         gLogin.setzeGroesse(400, 50);
-        gLogin.setzeHintergrundfarbe("orange");
+        gLogin.setzeHintergrundfarbe(loginFarbe);
         gLogin.setzeAusgabetext("E-Mail");
         gLogin.setzeSchriftgroesse(40);
         gLogin.setzeSchriftStilKursiv();
-        gLogin.setzeSchriftfarbe("grau");
+        gLogin.setzeSchriftfarbe(loginZweitFarbe);
         gLogin.setOnClickDelete();
         gLogin.setzeLink(this, 7);
 
         hLogin = new Passwortfeld();
         hLogin.setzePosition(mini_box, 450);
         hLogin.setzeGroesse(400, 50);
-        hLogin.setzeHintergrundfarbe("orange");
+        hLogin.setzeHintergrundfarbe(loginFarbe);
         hLogin.setzeAusgabetext("**Kennwort**");
         hLogin.setzeSchriftgroesse(40);
         hLogin.setzeSchriftStilKursiv();
-        hLogin.setzeSchriftfarbe("grau");
+        hLogin.setzeSchriftfarbe(loginZweitFarbe);
         hLogin.setzeLink(this, 2);
 
         dLogin = new Taste();
         dLogin.setzeAusgabetext("Noch nicht registriert? Hier klicken zum Registrieren");
         dLogin.setzeGroesse(400,40);
         dLogin.setzePosition(mini_box, 550);
-        dLogin.setzeHintergrundfarbe("weiss");
+        dLogin.setzeHintergrundfarbe(priemereFarbe);
         dLogin.setzeSchriftgroesse(11);
-        dLogin.setzeSchriftfarbe("blau");
+        dLogin.setzeSchriftfarbe(secundereFarbe);
         dLogin.setzeLink(this);
         dLogin.setzeID(3);
 
@@ -326,7 +347,7 @@ public class Start1 implements ITuWas
         iLogin.setzeAusgabetext("Anmelden");
         iLogin.setzeGroesse(400,50);
         iLogin.setzePosition(mini_box, 680);
-        iLogin.setzeHintergrundfarbe("weiss");
+        iLogin.setzeHintergrundfarbe(priemereFarbe);
         iLogin.setzeID(2);
         iLogin.setzeLink(this);
     }
@@ -353,12 +374,12 @@ public class Start1 implements ITuWas
         e = new Listbox();
         e.setzeGroesse(500, 650);
         e.setzePosition(box,200);
-        e.setzeHintergrundfarbe("weiss");
+        e.setzeHintergrundfarbe(loginDrittFarbe);
 
         eingabeB = new Eingabefeld();
         eingabeB.setzePosition(mini_box, 250);
         eingabeB.setzeGroesse(400, 50);
-        eingabeB.setzeHintergrundfarbe("orange");
+        eingabeB.setzeHintergrundfarbe(loginFarbe);
         eingabeB.setzeAusgabetext("Registrierung");
         eingabeB.zentrieren();
         eingabeB.setReadonly();
@@ -367,48 +388,48 @@ public class Start1 implements ITuWas
         d = new Eingabefeld();
         d.setzePosition(mini_box, 340);
         d.setzeGroesse(400, 50);
-        d.setzeHintergrundfarbe("orange");
+        d.setzeHintergrundfarbe(loginFarbe);
         d.setzeAusgabetext("Vorname");
         d.setzeSchriftgroesse(40);
         d.setzeSchriftStilKursiv();
-        d.setzeSchriftfarbe("grau");
+        d.setzeSchriftfarbe(loginZweitFarbe);
         d.setOnClickDelete();
 
         f = new Eingabefeld();
         f.setzePosition(mini_box, 410);
         f.setzeGroesse(400, 50);
-        f.setzeHintergrundfarbe("orange");
+        f.setzeHintergrundfarbe(loginFarbe);
         f.setzeAusgabetext("Nachname");
         f.setzeSchriftgroesse(40);
         f.setzeSchriftStilKursiv();
-        f.setzeSchriftfarbe("grau");
+        f.setzeSchriftfarbe(loginZweitFarbe);
         f.setOnClickDelete();
 
         g = new Eingabefeld();
         g.setzePosition(mini_box, 480);
         g.setzeGroesse(400, 50);
-        g.setzeHintergrundfarbe("orange");
+        g.setzeHintergrundfarbe(loginFarbe);
         g.setzeAusgabetext("E-Mail");
         g.setzeSchriftgroesse(40);
         g.setzeSchriftStilKursiv();
-        g.setzeSchriftfarbe("grau");
+        g.setzeSchriftfarbe(loginZweitFarbe);
         g.setOnClickDelete();
 
         h = new Passwortfeld();
         h.setzePosition(mini_box, 550);
         h.setzeGroesse(400, 50);
-        h.setzeHintergrundfarbe("orange");
+        h.setzeHintergrundfarbe(loginFarbe);
         h.setzeAusgabetext("**Kennwort**");
         h.setzeSchriftgroesse(40);
         h.setzeSchriftStilKursiv();
-        h.setzeSchriftfarbe("grau");
+        h.setzeSchriftfarbe(loginZweitFarbe);
         h.setzeLink(this, 1);
 
         i = new Taste();
         i.setzeAusgabetext("Registrieren");
         i.setzeGroesse(400,50);
         i.setzePosition(mini_box, 680);
-        i.setzeHintergrundfarbe("weiss");
+        i.setzeHintergrundfarbe(priemereFarbe);
         i.setzeLink(this);
         i.setzeID(1);
         
@@ -416,9 +437,9 @@ public class Start1 implements ITuWas
         y.setzeAusgabetext("Zurück zur Anmeldung");
         y.setzeGroesse(400,40);
         y.setzePosition(mini_box,780);
-        y.setzeHintergrundfarbe("weiss");
+        y.setzeHintergrundfarbe(priemereFarbe);
         y.setzeSchriftgroesse(11);
-        y.setzeSchriftfarbe("blau");
+        y.setzeSchriftfarbe(secundereFarbe);
         y.setzeLink(this);
         y.setzeID(5);
     }
