@@ -75,17 +75,17 @@ public class Start1 implements ITuWas
        priemereFarbe = Color.WHITE;
        secundereFarbe = Color.BLUE;
        dritteFarbe = Color.WHITE;
-       loginFarbe = Color.WHITE;
-       loginZweitFarbe = Color.BLUE;
-       loginDrittFarbe = Color.LIGHT_GRAY;
-       bgFarbe = new Color(122,122,122);
+       loginFarbe = new Color(255,229,127);
+       loginZweitFarbe = new Color(255,111,0);
+       loginDrittFarbe = new Color(255,160,0);
+       bgFarbe = new Color(240,255,255);
        infohandler = new Infotext(this,bgFarbe,priemereFarbe,secundereFarbe);
        window = new Zeichnung();
        window.maximiere();
        width = window.getWidth();
        scale = width/1920;
        System.out.println(scale);
-       window.setBackground(bgFarbe.LIGHT_GRAY);
+       window.setBackground(bgFarbe);
        login();
     }
 

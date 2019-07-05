@@ -318,7 +318,7 @@ class CRechteckmitRundenEcken extends BasisComponente {
                 RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_MITER));
-        g.setColor(Color.WHITE);
+        g.setColor(Color.WHITE); // immer Start1 primärefarbe
         
         if (gefuellt) {
             g2.fillRoundRect(0, 0, breite - 1, hoehe - 1, radius, radius);
