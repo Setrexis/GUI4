@@ -322,6 +322,7 @@ public class Start1 implements ITuWas
         eingabeC.setzePosition(mini_box, 250); // 700
         eingabeC.setzeGroesse(400, 50);
         eingabeC.setzeHintergrundfarbe(loginFarbe);
+        eingabeC.setzeSchriftfarbe(loginZweitFarbe);
         eingabeC.setzeAusgabetext("Anmeldung");
         eingabeC.zentrieren();
         eingabeC.setReadonly();
@@ -352,9 +353,9 @@ public class Start1 implements ITuWas
         dLogin.setzeAusgabetext("Noch nicht registriert? Hier klicken zum Registrieren");
         dLogin.setzeGroesse(400,40);
         dLogin.setzePosition(mini_box, 550);
-        dLogin.setzeHintergrundfarbe(priemereFarbe);
+        dLogin.setzeHintergrundfarbe(loginFarbe);
         dLogin.setzeSchriftgroesse(11);
-        dLogin.setzeSchriftfarbe(secundereFarbe);
+        dLogin.setzeSchriftfarbe(loginZweitFarbe);
         dLogin.setzeLink(this);
         dLogin.setzeID(3);
 
@@ -362,7 +363,8 @@ public class Start1 implements ITuWas
         iLogin.setzeAusgabetext("Anmelden");
         iLogin.setzeGroesse(400,50);
         iLogin.setzePosition(mini_box, 680);
-        iLogin.setzeHintergrundfarbe(priemereFarbe);
+        iLogin.setzeHintergrundfarbe(loginFarbe);
+        iLogin.setzeSchriftfarbe(loginZweitFarbe);
         iLogin.setzeID(2);
         iLogin.setzeLink(this);
     }
@@ -395,6 +397,7 @@ public class Start1 implements ITuWas
         eingabeB.setzePosition(mini_box, 250);
         eingabeB.setzeGroesse(400, 50);
         eingabeB.setzeHintergrundfarbe(loginFarbe);
+        eingabeB.setzeSchriftfarbe(loginZweitFarbe);
         eingabeB.setzeAusgabetext("Registrierung");
         eingabeB.zentrieren();
         eingabeB.setReadonly();
@@ -444,7 +447,8 @@ public class Start1 implements ITuWas
         i.setzeAusgabetext("Registrieren");
         i.setzeGroesse(400,50);
         i.setzePosition(mini_box, 680);
-        i.setzeHintergrundfarbe(priemereFarbe);
+        i.setzeHintergrundfarbe(loginFarbe);
+        i.setzeSchriftfarbe(loginZweitFarbe);
         i.setzeLink(this);
         i.setzeID(1);
         
@@ -452,9 +456,9 @@ public class Start1 implements ITuWas
         y.setzeAusgabetext("Zurück zur Anmeldung");
         y.setzeGroesse(400,40);
         y.setzePosition(mini_box,780);
-        y.setzeHintergrundfarbe(priemereFarbe);
+        y.setzeHintergrundfarbe(loginFarbe);
         y.setzeSchriftgroesse(11);
-        y.setzeSchriftfarbe(secundereFarbe);
+        y.setzeSchriftfarbe(loginZweitFarbe);
         y.setzeLink(this);
         y.setzeID(5);
     }
