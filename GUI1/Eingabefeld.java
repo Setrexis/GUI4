@@ -193,6 +193,14 @@ public class Eingabefeld implements IComponente {
         obj.setzeHintergrundfarbe(hintergrundFarbe);
     }
     
+    public void setzeSchriftfarbe(Color neueFarbe) {
+        obj.setzeSchriftfarbe(neueFarbe);
+    }
+    
+    public void setzeHintergrundfarbe(Color neueFarbe) {
+        obj.setzeHintergrundfarbe(neueFarbe);
+    }
+    
     public void setzeGroesse(int neueBreite, int neueHoehe) {
         breite = neueBreite;
         hoehe = neueHoehe;
@@ -554,6 +562,17 @@ class CEingabefeld extends BasisComponente implements ActionListener {
     
     public void setzeHintergrundfarbe(String farbname) {
         farbe = StaticTools.getColor(farbname);
+        eingabe.setBackground(farbe);
+        repaint();
+    }
+    
+    public void setzeSchriftfarbe(Color farbe) {
+        schriftFarbe = farbe;
+        eingabe.setForeground(schriftFarbe);
+        repaint();
+    }
+    
+    public void setzeHintergrundfarbe(Color farbe) {
         eingabe.setBackground(farbe);
         repaint();
     }

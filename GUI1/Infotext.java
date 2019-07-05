@@ -10,7 +10,7 @@ public class Infotext
     /**
      * Konstruktor für Objekte der Klasse Infotext
      */
-    public Infotext(Start1 comp, Color bgColor,String pc, String sc)
+    public Infotext(Start1 comp, Color bgColor,Color pc, Color sc)
     {
         window = new Zeichnung();
         window.resize(600, 400);

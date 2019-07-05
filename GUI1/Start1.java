@@ -16,12 +16,12 @@ public class Start1 implements ITuWas
     private float scale;
     
     //style
-    private String priemereFarbe;
-    private String secundereFarbe;
-    private String dritteFarbe;
-    private String loginFarbe;
-    private String loginZweitFarbe;
-    private String loginDrittFarbe;
+    private Color priemereFarbe;
+    private Color secundereFarbe;
+    private Color dritteFarbe;
+    private Color loginFarbe;
+    private Color loginZweitFarbe;
+    private Color loginDrittFarbe;
     private Color bgFarbe;
 
     // Info
@@ -72,12 +72,12 @@ public class Start1 implements ITuWas
        suche = new KomunikationClient(2526);
        key = "";
        didex = false;
-       priemereFarbe = "weiss";
-       secundereFarbe = "blau";
-       dritteFarbe = "weiss";
-       loginFarbe = "weiss";
-       loginZweitFarbe = "blau";
-       loginDrittFarbe = "hellgrau";
+       priemereFarbe = Color.WHITE;
+       secundereFarbe = Color.BLUE;
+       dritteFarbe = Color.WHITE;
+       loginFarbe = Color.WHITE;
+       loginZweitFarbe = Color.BLUE;
+       loginDrittFarbe = Color.LIGHT_GRAY;
        bgFarbe = new Color(122,122,122);
        infohandler = new Infotext(this,bgFarbe,priemereFarbe,secundereFarbe);
        window = new Zeichnung();

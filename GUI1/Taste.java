@@ -1,6 +1,7 @@
 //%$JGUIToolbox$%//ID fuer Toolboxdateien
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -192,13 +193,17 @@ public class Taste implements IComponente {
 		obj.setzeSchriftfarbe(schriftFarbe);
 	}
 	
-	/*
-	 * gueltige Farben: "rot", "gelb", "blau", "gruen", "lila" , "schwarz" ,
-	 * "weiss" , "grau","pink","magenta","orange","cyan","hellgrau"
-	 */
+	public void setzeSchriftfarbe(Color neueFarbe) {
+		obj.setzeSchriftfarbe(neueFarbe);
+	}
+
 	public void setzeHintergrundfarbe(String neueFarbe) {
 		hintergrundFarbe = neueFarbe;
 		obj.setzeBasisfarbe(hintergrundFarbe);
+	}
+	
+	public void setzeHintergrundfarbe(Color neueFarbe) {
+		obj.setzeBasisfarbe(neueFarbe);
 	}
 	
 	public void setzeGroesse(int neueBreite, int neueHoehe) {
@@ -359,6 +364,16 @@ class CTaste extends BasisComponente implements ActionListener {
 	
 	public void setzeSchriftfarbe(String farbname) {
 		farbe = StaticTools.getColor(farbname);
+		taste.setForeground(farbe);
+		repaint();
+	}
+
+	public void setzeBasisfarbe(Color farbe) {
+		taste.setBackground(farbe);
+		repaint();
+	}
+	
+	public void setzeSchriftfarbe(Color farbe) {
 		taste.setForeground(farbe);
 		repaint();
 	}
