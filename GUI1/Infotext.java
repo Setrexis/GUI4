@@ -20,7 +20,7 @@ public class Infotext
 
         window.setAlwaysOnTop(true);
         window.setTitle("no");
-        window.setBackground(bgColor);
+        window.hintergrundFarbe(Color.WHITE);
         
         
         eingabeA = new Eingabefeld();

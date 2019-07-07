@@ -35,7 +35,7 @@ class Liste
         if(index >= 0 && index <= length()){
             return erst.get(index);
         }
-        System.err.println("Null");
+        //System.err.println("Null");
         return null;
     }
 }

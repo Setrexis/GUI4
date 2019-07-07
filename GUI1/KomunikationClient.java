@@ -17,17 +17,6 @@ class KomunikationClient
     KomunikationClient (int port)
     {
         this.port = port;
-        /*try {
-            client = new Socket(host,port);
-            DataOutputStream output = new DataOutputStream(client.getOutputStream());
-            output.writeUTF("Hi, I am " + client.getLocalSocketAddress());
-            
-            DataInputStream input = new DataInputStream(client.getInputStream());
-            System.out.println(input.readUTF());
-            client.close();
-        }catch (IOException e){
-            e.printStackTrace();
-        }*/
     }
     
     public Liste querry(String command){

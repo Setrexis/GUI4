@@ -144,7 +144,7 @@ public class Start1 implements ITuWas
             st = "QUERY~~+~~"+ titel;
         }
         data = suche.querry(st);
-        System.out.println(data);
+        //System.out.println(data);
         if(didex){
             entfernenListe();
         }
@@ -163,10 +163,10 @@ public class Start1 implements ITuWas
 
     public void ausleihen(int i)
     {
-        System.out.println("Ausleihen " + st[i].leseText() + " Mit " + key);
+        //System.out.println("Ausleihen " + st[i].leseText() + " Mit " + key);
         String info = "AUSLEIHEN~~+~~" + key + "~~+~~" +st[i].leseText();
         String ans = suche.send(info);
-        System.out.print(ans);
+        //System.out.print(ans);
         if(ans.equals("ERFOLG")){
             infonachricht("Ausleihinformation", st[i].leseText() + "\n"+"wurde erfolgreich ausgeliehen");
         }else{
@@ -179,10 +179,10 @@ public class Start1 implements ITuWas
     
     public void zurückgeben(int i)
     {
-        System.out.println("ZURÜCKGEBEN " + st[i].leseText() + " Mit " + key);
+        //System.out.println("ZURÜCKGEBEN " + st[i].leseText() + " Mit " + key);
         String info = "ZURÜCKGEBEN~~+~~" + key + "~~+~~" +st[i].leseText();
         String ans = suche.send(info);
-        System.out.print(ans);
+        //System.out.print(ans);
         if(ans.equals("ERFOLG")){
             infonachricht("Ausleihinformation", st[i].leseText() + "\n"+"wurde erfolgreich zurückgegeben.");
         }else{
@@ -216,12 +216,12 @@ public class Start1 implements ITuWas
         didex = true;
         länge = l.length();
         scale = (float)window.getWidth()/(float)1920;
-        System.out.println(scale);
+        //System.out.println(scale);
         
         // Instanzvariable initialisieren
         eingabeA = new Eingabefeld();
         eingabeA.setzePosition((int)(1350 * scale), 100);
-        eingabeA.setzeGroesse(400, 50);
+        eingabeA.setzeGroesse((int)(400 * scale), 50);
         eingabeA.setzeHintergrundfarbe(secundereFarbe);
         eingabeA.setzeSchriftfarbe(priemereFarbe);
         eingabeA.setzeAusgabetext("Film suchen ...");
@@ -243,7 +243,7 @@ public class Start1 implements ITuWas
         }
         z.setzeHintergrundfarbe(priemereFarbe);
         z.setzeSchriftfarbe(secundereFarbe);
-        z.setzeGroesse(300, 50);
+        z.setzeGroesse((int)(300 * scale), 50);
         z.setzePosition((int)(150 * scale), 100);
         
         p = new Taste();
@@ -251,7 +251,7 @@ public class Start1 implements ITuWas
         p.setzeHintergrundfarbe(priemereFarbe);
         p.setzeSchriftfarbe(secundereFarbe);
         p.setzePosition((int)(1350 * scale), 150);
-        p.setzeGroesse(400, 30);
+        p.setzeGroesse((int)(400 * scale), 30);
         p.setzeID(7);
         p.setzeLink(this);
 
@@ -262,13 +262,13 @@ public class Start1 implements ITuWas
         et = new Eingabefeld[länge];
         taste3 = new Taste[länge];
         for(int i = 0;i < länge;i++){
-           rr[i] = new RechteckMitRundenEcken(1600,200,50);
+           rr[i] = new RechteckMitRundenEcken((int)(1600 * scale),200,50);
            rr[i].setzePosition((int)(150 * scale), 200+i*300);
            rr[i].setzeFarbe(dritteFarbe);
            
            st[i] = new Eingabefeld();
            st[i].setzePosition((int)(200 * scale), 225+i*300);
-           st[i].setzeGroesse(500, 40);
+           st[i].setzeGroesse((int)(500 * scale), 40);
            st[i].setzeHintergrundfarbe(priemereFarbe);
            st[i].setReadonly();
            st[i].setzeAusgabetext(l.get(i).getTitle());
@@ -277,7 +277,7 @@ public class Start1 implements ITuWas
            
            bt[i] = new Eingabefeld();
            bt[i].setzePosition((int)(200 * scale), 275+i*300);
-           bt[i].setzeGroesse(500, 30);
+           bt[i].setzeGroesse((int)(500 * scale), 30);
            bt[i].setzeHintergrundfarbe(priemereFarbe);
            bt[i].setReadonly();
            bt[i].setzeAusgabetext(l.get(i).Genre + "      " + l.get(i).Länge + " min");
@@ -286,7 +286,7 @@ public class Start1 implements ITuWas
            
            et[i] = new Eingabefeld();
            et[i].setzePosition((int)(200 * scale), 315+i*300);
-           et[i].setzeGroesse(500, 30);
+           et[i].setzeGroesse((int)(500 * scale), 30);
            et[i].setzeHintergrundfarbe(priemereFarbe);
            et[i].setReadonly();
            et[i].setzeAusgabetext("FSK : " + l.get(i).Altersbeschränkung + "      " + l.get(i).Erscheinungsjahr);
@@ -294,7 +294,7 @@ public class Start1 implements ITuWas
            et[i].setzeSchriftfarbe(secundereFarbe);
            
            taste3[i] = new Taste();
-           taste3[i].setzeGroesse(200, 50);
+           taste3[i].setzeGroesse((int)(200 * scale), 50);
            taste3[i].setzeHintergrundfarbe(secundereFarbe);
            taste3[i].setzeSchriftfarbe(priemereFarbe);
            taste3[i].setzePosition((int)(1520 * scale), 210+i*300);
@@ -494,7 +494,6 @@ public class Start1 implements ITuWas
         
         Pattern email_pattern = Pattern.compile("^[A-Za-z0-9._]{1,16}+@{1}+[a-z]{1,7}\\.[a-z]{1,3}$");
         Matcher mat = email_pattern.matcher(email);
-        System.out.println(mat.matches() + " " + email);
         
         if(name.length() < 2 || name.equals("Vorname")){
             infonachricht("Registrationsinformation", "Vorname zu kurz.");
@@ -509,17 +508,17 @@ public class Start1 implements ITuWas
         }else{
             
             key = suche.send("REGISTER~~+~~" + d.leseText()+"~~+~~"+f.leseText()+"~~+~~"+h.leseText()+"~~+~~"+g.leseText());
-            System.out.println("Reg Key " + key);
+            //System.out.println("Reg Key " + key);
             if(key.startsWith("ERROR") || key.equals("")){
-                System.out.println(key);
+                //System.out.println(key);
                 Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
                 String[] data = pattern.split(key);
                 infonachricht("Registrationsinformation", "Fehler: " + data[1] + ".");
                 key = "";
             }else{
-                System.out.println("Del reg");
+                //System.out.println("Del reg");
                 delReg();
-                System.out.println("Fertig");
+                //System.out.println("Fertig");
                 suche("");
             }
         }
@@ -527,17 +526,17 @@ public class Start1 implements ITuWas
 
     public void logn(){
         key  = suche.send("LOGIN~~+~~" + gLogin.leseText()+ "~~+~~"+ hLogin.leseText());
-        System.out.println("Login Key " + key);
+        //System.out.println("Login Key " + key);
         if(key.startsWith("ERROR") || key.equals("")){
-            System.out.println(key);
+            //System.out.println(key);
             Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
             String[] data = pattern.split(key);
             infonachricht("Logininformation", "Fehler: " + data[1] + ".");
             key = "";
         }else{
-            System.out.println("login löschen");
+            //System.out.println("login löschen");
             delLogin();
-            System.out.println("Fertig");
+            //System.out.println("Fertig");
             suche("");
         }
     }
@@ -554,7 +553,7 @@ public class Start1 implements ITuWas
             login();
             key = "";
         }else{
-            System.out.println(key);
+            //System.out.println(key);
             Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
             String[] data = pattern.split(key);
             infonachricht("Logoutinformation", "Fehler: " + data[1] + ".");
