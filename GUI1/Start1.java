@@ -23,6 +23,9 @@ public class Start1 implements ITuWas
     private Color loginZweitFarbe;
     private Color loginDrittFarbe;
     private Color bgFarbe;
+    private Color loginbgfarbe;
+    private String bildpfad;
+    private int[] bildsize;
 
     // Info
     private Infotext infohandler;
@@ -75,17 +78,19 @@ public class Start1 implements ITuWas
        priemereFarbe = Color.WHITE;
        secundereFarbe = Color.BLUE;
        dritteFarbe = Color.WHITE;
-       loginFarbe = new Color(255,229,127);
-       loginZweitFarbe = new Color(255,111,0);
-       loginDrittFarbe = new Color(255,160,0);
-       bgFarbe = new Color(240,255,255);
+       loginFarbe = Color.WHITE;
+       loginZweitFarbe = new Color(0,182,192);
+       loginDrittFarbe = new Color(1,81,209);
+       bgFarbe = new Color(218,231,231);
+       loginbgfarbe = Color.BLACK;
+       bildpfad = "back3.jpg"; // "back.png"
+       bildsize = new int[] {4096 ,2304}; //4000,3800
        infohandler = new Infotext(this,bgFarbe,priemereFarbe,secundereFarbe);
        window = new Zeichnung();
        window.maximiere();
        width = window.getWidth();
        scale = width/1920;
-       System.out.println(scale);
-       window.setBackground(bgFarbe);
+       window.hintergrundFarbe(loginbgfarbe);
        login();
     }
 
@@ -207,6 +212,7 @@ public class Start1 implements ITuWas
 
     public void displayListe(Liste l){
         window.setzeScrollbar(true);
+        window.hintergrundFarbe(bgFarbe);
         didex = true;
         länge = l.length();
         scale = (float)window.getWidth()/(float)1920;
@@ -306,8 +312,10 @@ public class Start1 implements ITuWas
 
     public void login(){
         window.setzeScrollbar(false);
-        b = new Bild("back.png" );
-        b.setzeGroesse(4000,3800);
+        window.hintergrundFarbe(Color.BLACK);
+        b = new Bild(bildpfad);
+        b.setzeGroesse(window.getWidth(),window.getHeight());
+        b.einpassen();
         
         width = window.getWidth() / 2;
         int box = width - 250;
@@ -381,8 +389,10 @@ public class Start1 implements ITuWas
 
     public void registrieren(){
         window.setzeScrollbar(false);
-        b = new Bild("back.png" );
-        b.setzeGroesse(4000,3800);
+        window.hintergrundFarbe(Color.BLACK);
+        b = new Bild(bildpfad);
+        b.setzeGroesse(window.getWidth(),window.getHeight());
+        b.einpassen();
         
         width = window.getWidth() / 2;
         int box = width - 250;

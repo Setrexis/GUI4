@@ -496,6 +496,7 @@ class CBild extends BasisComponente {
 	public CBild(BufferedImage bild) {
 		this.bild = bild;
 		this.bildM = bild;
+		this.setBorder(null);
 	}
 
 	public void wechsleBild(BufferedImage bild) {
