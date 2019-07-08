@@ -61,7 +61,7 @@ class ServerMain
             if(data[1].equals("*")){
                 st = "SELECT * FROM Filme WHERE Ausgeliehen = 0";
             }else{
-                st = "SELECT * FROM Filme WHERE Ausgeliehen = 0 and (Titel = '" + data[1]+ "' or Genre ='" + data[1]+ "' or Erscheinungsjahr='"+ data[1]+ "' or L√§nge='"+ data[1]+ "')";
+                st = "SELECT * FROM Filme WHERE Ausgeliehen = 0 and (Titel = '" + data[1]+ "' or Genre ='" + data[1]+ "' or Erscheinungsjahr='"+ data[1]+ "' or L‰nge='"+ data[1]+ "')";
             }
             Liste l = sql.SQLAbfrage(st);
             send(l);
@@ -70,7 +70,7 @@ class ServerMain
             byte[] pas = null;
             int i = -1;
             
-            // √úberpr√ºfen ob benutzername und passwort richtig sind und dann einen AusleihID Sting zur√ºckschicken.
+            // ‹berpr√ºfen ob benutzername und passwort richtig sind und dann einen AusleihID Sting zur√ºckschicken.
             // index 1 email 2 passwort
             
             // Soll die ID das passwort und den salt returnen als Object Array
@@ -100,15 +100,16 @@ class ServerMain
         }else if (q.startsWith("REGISTER")){
             // Regestrieren und dann einen AusleihID Sting zur√ºckschicken.
             
-            //√úberpr√ºfung ob der benutzer schon existiert
+            //‹berpr√ºfung ob der benutzer schon existiert
             
             byte[] salt = Hash.getSalt();
             byte[] pas = Hash.HashPasswort(data[3], salt);
-            int i = -1;
+            int i = -2;
             
             try{
                 sqlE.registrieren(data[1], data[2], 0, data[1] + " " + data[2], pas, data[4], "", salt);
-                i = sql.LoginAbfrage(data[4], data[3]); 
+                i = sql.LoginInfo(data[4]).id;
+                System.out.println("ID : " +i);
             }catch(Exception e){
                 send("ERROR~~+~~" + e);
                 return;
@@ -128,7 +129,7 @@ class ServerMain
                 String[] info = authIDKeyPair.get(key);
                 
                 if(abgelaufen(info[1]) == false){
-                    if(sql.Pr√ºfenObAusgeliehen(data[2])){
+                    if(sql.Pr¸fenObAusgeliehen(data[2])){
                         send("ERROR~~+~~wurde leider schon ausgeliehen!");
                     }else{
                         sqlE.FilmAusleihen(data[2], Integer.parseInt(info[0]));
@@ -142,14 +143,14 @@ class ServerMain
             }catch(Exception e){
                 send("ERROR " + e);
             }
-        }else if (q.startsWith("ZUR√úCKGEBEN")){
+        }else if (q.startsWith("ZUR‹CKGEBEN")){
             String key = data[1];
             try{
                 String[] info = authIDKeyPair.get(key);
                 
                 if(abgelaufen(info[1]) == false){
-                    if(sql.Pr√ºfenObAusgeliehen(data[2])){
-                        sqlE.FilmZur√ºckgeben(data[2]);
+                    if(sql.Pr¸fenObAusgeliehen(data[2])){
+                        sqlE.FilmZur¸ckgeben(data[2]);
                         send("ERFOLG");
                     }else{
                         send("ERROR~~+~~Du hast den Film nicht!");
@@ -186,7 +187,41 @@ class ServerMain
             }catch(Exception e){
                 send("ERROR " + e);
             }
-        }else{
+        }else if(q.startsWith("INFO")){
+            String key = data[1];
+            try{
+                String[] info = authIDKeyPair.get(key);
+                if(abgelaufen(info[1]) == false){
+                    String[] daten = sql.Benutzerabfrage(Integer.parseInt(info[0]));
+                    send(daten[0] + "~~+~~"+daten[1] + "~~+~~"+daten[2]);
+                }else {
+                    //Error
+                    authIDKeyPair.remove(key);
+                    send("ERROR~~+~~Login abgelaufen!");
+                }
+            }catch(Exception e){
+                send("ERROR " + e);
+            }
+        }else if(q.startsWith("UPDATE")){
+            String key = data[1];
+            try{
+                String[] info = authIDKeyPair.get(key);
+                
+                if(abgelaufen(info[1]) == false){
+                    byte[] salt = Hash.getSalt();
+                    Info lol = new Info(Integer.parseInt(info[0]), Hash.HashPasswort(data[2], salt),salt);
+                    sqlE.passwort‰ndern(lol);
+                    send("ERFOLG");
+                }else {
+                    //Error
+                    authIDKeyPair.remove(key);
+                    send("ERROR~~+~~Login abgelaufen!");
+                }
+            }catch(Exception e){
+                send("ERROR " + e);
+            }
+        }
+        else{
             send("ERROR~~+~~1");
         }
     }

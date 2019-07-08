@@ -1,6 +1,7 @@
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 
 public class Start1 implements ITuWas
@@ -46,6 +47,7 @@ public class Start1 implements ITuWas
     private int länge;
     private Taste z;
     private Taste p;
+    private Taste profil;
 
     //register
     private Eingabefeld eingabeB;
@@ -88,6 +90,9 @@ public class Start1 implements ITuWas
        infohandler = new Infotext(this,bgFarbe,priemereFarbe,secundereFarbe);
        window = new Zeichnung();
        window.maximiere();
+       window.setTitle("Die Player Stube");
+       ImageIcon img = new ImageIcon("icon.png");
+       window.setIconImage(img.getImage());
        width = window.getWidth();
        scale = width/1920;
        window.hintergrundFarbe(loginbgfarbe);
@@ -131,6 +136,18 @@ public class Start1 implements ITuWas
             this.ausleihinfo();
         }else if (ID == 7){
             this.logout();
+        }
+        else if (ID == 8){
+            this.entfernenListe();
+            this.profilanzeigen();
+        }
+        else if (ID == 11){
+            this.delReg();
+            this.suche("");
+        }
+        else if (ID == 9){
+            this.updatebenutzer();
+            
         }
     }
 
@@ -199,6 +216,7 @@ public class Start1 implements ITuWas
         tasteRot.entfernen();
         z.entfernen();
         p.entfernen();
+        profil.entfernen();
 
         for(int i = 0;i < länge;i++){
             rr[i].entfernen();
@@ -226,6 +244,7 @@ public class Start1 implements ITuWas
         eingabeA.setzeSchriftfarbe(priemereFarbe);
         eingabeA.setzeAusgabetext("Film suchen ...");
         eingabeA.setOnClickDelete();
+        eingabeA.setzeLink(this, 0);
 
         tasteRot = new Taste();
         tasteRot.setzeHintergrundfarbe(secundereFarbe);
@@ -254,13 +273,23 @@ public class Start1 implements ITuWas
         p.setzeGroesse((int)(400 * scale), 30);
         p.setzeID(7);
         p.setzeLink(this);
-
+        
+        profil = new Taste();
+        profil.setzeHintergrundfarbe(priemereFarbe);
+        profil.setzeSchriftfarbe(secundereFarbe);
+        profil.setzeGroesse((int)(300 * scale), 50);
+        profil.setzePosition((int)(500 * scale), 100);
+        profil.setzeAusgabetext("Profil");
+        profil.setzeLink(this,8);
 
         rr = new RechteckMitRundenEcken[länge];
         st = new Eingabefeld[länge];
         bt = new Eingabefeld[länge];
         et = new Eingabefeld[länge];
         taste3 = new Taste[länge];
+        
+        
+        
         for(int i = 0;i < länge;i++){
            rr[i] = new RechteckMitRundenEcken((int)(1600 * scale),200,50);
            rr[i].setzePosition((int)(150 * scale), 200+i*300);
@@ -309,7 +338,123 @@ public class Start1 implements ITuWas
         }
         tasteRot.setzeLink(this, 0);
     }
+    
+    public void profilanzeigen(){
+        
+        
+        window.setzeScrollbar(false);
+        window.hintergrundFarbe(Color.BLACK);
+        b = new Bild(bildpfad);
+        b.setzeGroesse(window.getWidth(),window.getHeight());
+        b.einpassen();
+        
+        width = window.getWidth() / 2;
+        int box = width - 250;
+        int mini_box = box + 50;
+        
+        String[] ans = benutzerinformation();
+        
+        e = new Listbox();
+        e.setzeGroesse(500, 650);
+        e.setzePosition(box,200);
+        e.setzeHintergrundfarbe(loginDrittFarbe);
+        
+        eingabeB = new Eingabefeld();
+        eingabeB.setzePosition(mini_box, 250);
+        eingabeB.setzeGroesse(400, 50);
+        eingabeB.setzeHintergrundfarbe(loginFarbe);
+        eingabeB.setzeSchriftfarbe(loginZweitFarbe);
+        eingabeB.setzeAusgabetext("Profil");
+        eingabeB.zentrieren();
+        eingabeB.setReadonly();
+        eingabeB.setzeSchriftgroesse(45);
 
+        d = new Eingabefeld();
+        d.setzePosition(mini_box, 340);
+        d.setzeGroesse(400, 50);
+        d.setzeHintergrundfarbe(loginFarbe);
+        d.setzeAusgabetext(ans[0]);
+        d.setzeSchriftgroesse(40);
+        d.setzeSchriftStilKursiv();
+        d.setzeSchriftfarbe(loginZweitFarbe);
+        d.setReadonly();
+
+        f = new Eingabefeld();
+        f.setzePosition(mini_box, 410);
+        f.setzeGroesse(400, 50);
+        f.setzeHintergrundfarbe(loginFarbe);
+        f.setzeAusgabetext(ans[1]);
+        f.setzeSchriftgroesse(40);
+        f.setzeSchriftStilKursiv();
+        f.setzeSchriftfarbe(loginZweitFarbe);
+        f.setReadonly();
+
+        g = new Eingabefeld();
+        g.setzePosition(mini_box, 480);
+        g.setzeGroesse(400, 50);
+        g.setzeHintergrundfarbe(loginFarbe);
+        g.setzeAusgabetext(ans[2]);
+        g.setzeSchriftgroesse(40);
+        g.setzeSchriftStilKursiv();
+        g.setzeSchriftfarbe(loginZweitFarbe);
+        g.setReadonly();;
+
+        h = new Passwortfeld();
+        h.setzePosition(mini_box, 550);
+        h.setzeGroesse(400, 50);
+        h.setzeHintergrundfarbe(loginFarbe);
+        h.setzeAusgabetext("** neues Kennwort**");
+        h.setzeSchriftgroesse(40);
+        h.setzeSchriftStilKursiv();
+        h.setzeSchriftfarbe(loginZweitFarbe);
+        h.setzeLink(this, 9);
+
+        i = new Taste();
+        i.setzeAusgabetext("Speichern");
+        i.setzeGroesse(400,50);
+        i.setzePosition(mini_box, 680);
+        i.setzeHintergrundfarbe(loginFarbe);
+        i.setzeSchriftfarbe(loginZweitFarbe);
+        i.setzeLink(this);
+        i.setzeID(9);
+        
+        y = new Taste();
+        y.setzeAusgabetext("Zurück");
+        y.setzeGroesse(400,40);
+        y.setzePosition(mini_box,780);
+        y.setzeHintergrundfarbe(loginFarbe);
+        y.setzeSchriftgroesse(11);
+        y.setzeSchriftfarbe(loginZweitFarbe);
+        y.setzeLink(this);
+        y.setzeID(11);
+        
+    }
+    
+    public String[] benutzerinformation(){
+        String ans = suche.send("INFO~~+~~"+ key);
+        Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+        String[] data = pattern.split(ans);
+        return data;
+    }
+    
+    public void updatebenutzer(){
+        String passwort= h.leseText();
+         if(passwort.length() < 6 || passwort.equals("**Kennwort**")|| passwort.equals("** neues Kennwort**")){
+            infonachricht("Registrationsinformation", "Passwort zu kurz.");
+        }
+        String anfrage = "UPDATE~~+~~"+ key+"~~+~~"+passwort;
+        String ans = suche.send(anfrage);
+        //System.out.println("Reg Key " + key);
+        if(ans.startsWith("ERROR") || ans.equals("")){
+            //System.out.println(key);
+            Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
+            String[] data = pattern.split(ans);
+            infonachricht("Profilinformationen", "Fehler: " + data[1] + ".");
+        }else{
+            infonachricht("Profilinformationen", "Passwort erfolgreich geändert");
+        }
+    }
+    
     public void login(){
         window.setzeScrollbar(false);
         window.hintergrundFarbe(Color.BLACK);

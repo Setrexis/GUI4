@@ -2,7 +2,7 @@ import java.sql.*;
 /**
  * Beschreiben Sie hier die Klasse DatenEinf.
  * Eine SQL-Anweisung (Insert) wird an die SQLite Datenbank test.db gesendet 
- * und eine BestÃ¤tigung wird auf der Konsole ausgegeben. 
+ * und eine Bestätigung wird auf der Konsole ausgegeben. 
  * https://www.tutorialspoint.com/sqlite/sqlite_java.htm
  * @author (Ihr Name) 
  * @version (eine Versionsnummer oder ein Datum)
@@ -65,7 +65,34 @@ public class DatenEinf
         }
         System.out.println("Records created successfully");
     }
-    public void FilmZurÃ¼ckgeben(String Filmtitel) {
+    
+    public void passwortändern(Info lol){
+        Connection c = null;
+        Statement stmt = null;
+
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:Filme.db");
+            c.setAutoCommit(false);
+            System.out.println("Opened database successfully");
+
+            stmt = c.createStatement();
+            String sql = "UPDATE Benutzer SET Passwort = '" +lol.passwort+"', salt = '" +lol.salt+"' WHERE KundenID= '" + lol.id + "';";
+            
+            System.out.println(sql);    
+            stmt.executeUpdate(sql);
+
+            stmt.close();
+            c.commit();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        System.out.println("Records created successfully");
+    }
+    
+    public void FilmZurückgeben(String Filmtitel) {
         Connection c = null;
         Statement stmt = null;
 

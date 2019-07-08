@@ -11,16 +11,16 @@ public class SQLAbfrage
             while ( rs.next() ) {
                 String Titel = rs.getString("Titel");
                 int Erscheinungsjahr = rs.getInt("Erscheinungsjahr");
-                int L√§nge = rs.getInt("L√§nge");
-                int  Altersbeschr√§nkung = rs.getInt("Altersbeschr√§nkung");
+                int L‰nge = rs.getInt("L‰nge");
+                int  Altersbeschr‰nkung = rs.getInt("Altersbeschr‰nkung");
                 String  Genre = rs.getString("Genre");
                 int ID = rs.getInt("ID");
                 boolean Ausgeliehen = rs.getBoolean("Ausgeliehen");
                 String VerliehenAn = rs.getString("VerliehenAn");
 
-                Datenelement e = new Datenelement(Erscheinungsjahr, L√§nge, ID, Titel, Altersbeschr√§nkung, Genre, Ausgeliehen, VerliehenAn);
+                Datenelement e = new Datenelement(Erscheinungsjahr, L‰nge, ID, Titel, Altersbeschr‰nkung, Genre, Ausgeliehen, VerliehenAn);
 
-                list.einf√ºgen(e);
+                list.einf¸gen(e);
             }
             rs.close();
             c.close();
@@ -77,7 +77,28 @@ public class SQLAbfrage
         return id;
     }
     
-    public boolean Pr√ºfenObAusgeliehen(String Filmtitel) {
+    public String[] Benutzerabfrage(int id){
+        SqlCreate c = new SqlCreate();
+        String[] daten = new String[3];
+        ResultSet rs = c.querry("SELECT Vorname,Name,Email FROM Benutzer WHERE KundenID=" + id + ";");
+        try
+        {
+            while(rs.next()){
+                daten[0] = rs.getString("Vorname");
+                daten[1] = rs.getString("Name");
+                daten[2] = rs.getString("Email");
+            }
+            c.close();
+            rs.close();
+        }
+        catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            throw new IllegalArgumentException(e.getMessage());
+        }
+        return daten;
+    }
+    
+    public boolean Pr¸fenObAusgeliehen(String Filmtitel) {
         SqlCreate c = new SqlCreate();
         boolean a = true;
         String sql = "SELECT Ausgeliehen FROM Filme WHERE Titel ='" + Filmtitel + "'";
@@ -103,16 +124,16 @@ public class SQLAbfrage
             while ( rs.next() ) {
                 String Titel = rs.getString("Titel");
                 int Erscheinungsjahr = rs.getInt("Erscheinungsjahr");
-                int L√§nge = rs.getInt("L√§nge");
-                int  Altersbeschr√§nkung = rs.getInt("Altersbeschr√§nkung");
+                int L‰nge = rs.getInt("L‰nge");
+                int  Altersbeschr‰nkung = rs.getInt("Altersbeschr‰nkung");
                 String  Genre = rs.getString("Genre");
                 int ID = rs.getInt("ID");
                 boolean Ausgeliehen = rs.getBoolean("Ausgeliehen");
                 String VerliehenAn = rs.getString("VerliehenAn");
 
-                Datenelement e = new Datenelement(Erscheinungsjahr, L√§nge, ID, Titel, Altersbeschr√§nkung, Genre, Ausgeliehen, VerliehenAn);
+                Datenelement e = new Datenelement(Erscheinungsjahr, L‰nge, ID, Titel, Altersbeschr‰nkung, Genre, Ausgeliehen, VerliehenAn);
 
-                list.einf√ºgen(e);
+                list.einf¸gen(e);
             }
             rs.close();
             c.close();
