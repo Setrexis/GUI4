@@ -33,9 +33,6 @@ class Datenelement
     Datenelement (String qurry){
         Pattern pattern = Pattern.compile(Pattern.quote("~~+~~"));
         String[] q = pattern.split(qurry);
-        for(String w:q){  
-            System.out.println(w);  
-        } 
        
         this.Erscheinungsjahr = Integer.parseInt(q[0]);
         this.Länge = Integer.parseInt(q[1]);

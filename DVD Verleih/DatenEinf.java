@@ -32,7 +32,7 @@ public class DatenEinf
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException("E-mail wird bereits genutzt!");
         }
         System.out.println("Records created successfully");
     }
@@ -61,7 +61,7 @@ public class DatenEinf
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException(e.getMessage());
         }
         System.out.println("Records created successfully");
     }
@@ -76,7 +76,7 @@ public class DatenEinf
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "UPDATE Filme SET Ausgeliehen = false, VerliehenAn = null, VerliehenBis WHERE Titel = '" + Filmtitel + "';";
+            String sql = "UPDATE Filme SET Ausgeliehen = false, VerliehenAn = null, VerliehenBis = null WHERE Titel = '" + Filmtitel + "';";
             
             System.out.println(sql);    
             stmt.executeUpdate(sql);
@@ -86,7 +86,7 @@ public class DatenEinf
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            throw new IllegalArgumentException(e.getMessage());
         }
         System.out.println("Records created successfully");
     }

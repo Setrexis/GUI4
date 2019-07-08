@@ -195,6 +195,10 @@ public class Listbox implements IComponente {
 		obj.setzeHintergrundfarbe(hintergrundFarbe);
 	}
 	
+	public void setzeHintergrundfarbe(Color neueFarbe) {
+		obj.setzeHintergrundfarbe(neueFarbe);
+	}
+	
 	public void setzeGroesse(int neueBreite, int neueHoehe) {
 		breite = neueBreite;
 		hoehe = neueHoehe;
@@ -388,6 +392,11 @@ class CListbox extends BasisComponente implements ListSelectionListener {
 	
 	public void setzeHintergrundfarbe(String farbname) {
 		farbe = StaticTools.getColor(farbname);
+		listbox.setBackground(farbe);
+		repaint();
+	}
+	
+	public void setzeHintergrundfarbe(Color farbe) {
 		listbox.setBackground(farbe);
 		repaint();
 	}

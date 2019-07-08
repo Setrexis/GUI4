@@ -19,8 +19,7 @@ public class SqlCreate
 
             rs = stmt.executeQuery(abfrage);
         }catch(ClassNotFoundException | SQLException e){
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() + " SqlCreate");
         }
         return rs;
     }
@@ -31,7 +30,6 @@ public class SqlCreate
             c.close();
         }catch(SQLException e){
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
     }
 }
